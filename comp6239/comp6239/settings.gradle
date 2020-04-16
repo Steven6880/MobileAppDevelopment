@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 rootProject.name='comp6239'
 include ':app'
 include ':common'
 include ':lang'
+=======
+rootProject.name='comp6239'
+include ':app'
+include ':common'
+>>>>>>> 87ea13dcc63eaf6c2826a1f70c5aea3654665388

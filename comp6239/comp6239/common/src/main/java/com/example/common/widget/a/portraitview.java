@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 package com.example.common.widget.a;
 
 import android.content.Context;
@@ -23,3 +24,9 @@ public class portraitview extends CircleImageView {
         super(context, attrs, defStyle);
     }
 }
+=======
+package com.example.common.widget.a;
+
+public class portraitview{
+}
+>>>>>>> 87ea13dcc63eaf6c2826a1f70c5aea3654665388
