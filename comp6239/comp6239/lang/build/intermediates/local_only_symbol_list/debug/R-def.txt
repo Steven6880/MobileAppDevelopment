@@ -1,0 +1,8 @@
+R_DEF: Internal format may change without notice
+local
+string action_events
+string action_home
+string action_verification
+string title_events
+string title_home
+string title_verification
