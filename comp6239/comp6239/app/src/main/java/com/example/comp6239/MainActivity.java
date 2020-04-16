@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AnticipateOvershootInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -21,19 +23,27 @@ import com.example.common.app.BaseActivity;
 import com.example.common.widget.a.portraitview;
 import com.example.comp6239.fragments.main.ActiveFragment;
 import com.example.comp6239.fragments.main.EventsFragment;
+import com.example.comp6239.fragments.main.VerifyFragment;
+import com.example.comp6239.helper.NavHelper;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
+import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.widget.FloatActionButton;
+
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
-        implements BottomNavigationView.OnNavigationItemSelectedListener {
+        implements BottomNavigationView.OnNavigationItemSelectedListener,
+        NavHelper.OnTabChangedListener<Integer>{
 
     private FirebaseAnalytics mFirebaseAnalytics;
+
+    private NavHelper<Integer> mNavHelper;
 
     @BindView(R.id.appbar)
     View mLayAppbar;
@@ -64,6 +74,13 @@ public class MainActivity extends BaseActivity
         // Obtain the FirebaseAnalytics instance.
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
+        // 初始化底部辅助工具类
+        mNavHelper = new NavHelper<>(this, R.id.lay_container,
+                getSupportFragmentManager(), this);
+        mNavHelper.add(R.id.action_home, new NavHelper.Tab<>(ActiveFragment.class, R.string.title_home))
+                .add(R.id.action_events, new NavHelper.Tab<>(EventsFragment.class, R.string.title_events))
+                .add(R.id.action_verification, new NavHelper.Tab<>(VerifyFragment.class, R.string.title_verification));
+
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         Glide.with(this)
@@ -86,7 +103,14 @@ public class MainActivity extends BaseActivity
                 });
     }
 
-    public void initDat(){ super.initData();}
+    public void initDat(){
+        super.initData();
+
+        // 从底部导中接管我们的Menu，然后进行手动的触发第一次点击
+        Menu menu = mNavigation.getMenu();
+        // 触发首次选中Home
+        menu.performIdentifierAction(R.id.action_home, 0);
+    }
 
     @OnClick(R.id.im_search)
     void onSearchMenuClick(){
@@ -98,21 +122,48 @@ public class MainActivity extends BaseActivity
 
     }
 
+    /**
+     * 当我们的底部导航被点击的时候触发
+     *
+     * @param item MenuItem
+     * @return True 代表我们能够处理这个点击
+     */
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.action_home){ // take action according button's id
-            mTitle.setText(R.string.title_home); // set the title of the fragment
+        // 转接事件流到工具类中
+        return mNavHelper.performClickMenu(item.getItemId());
+    }
 
-            ActiveFragment activeFragment = new ActiveFragment(); //new a ActiveFragment as the main page
+    @Override
+    public void onTabChanged(NavHelper.Tab<Integer> newTab, NavHelper.Tab<Integer> oldTab) {
+        // 从额外字段中取出我们的Title资源Id
+        mTitle.setText(newTab.extra);
 
-            getSupportFragmentManager().beginTransaction().add(R.id.lay_container , activeFragment).commit(); //hard method, to add the fragment.
-        }else if( item.getItemId() == R.id.action_events){
-            mTitle.setText(R.string.title_events);
+        // 对浮动按钮进行隐藏与显示的动画
 
-            EventsFragment eventsFragment = new EventsFragment();
-
-            getSupportFragmentManager().beginTransaction().add(R.id.lay_container , eventsFragment).commit();
+        float transY = 0;
+        float rotation = 0;
+        if (Objects.equals(newTab.extra, R.string.title_home)) {
+            // hide in main
+            transY = Ui.dipToPx(getResources(), 76);
+        } else {
+            // transY default is 0
+            if (Objects.equals(newTab.extra, R.string.title_events)) {
+                // events
+                mAction.setImageResource(R.drawable.ic_group_add);
+                rotation = -360;
+            } else {
+                // hide in verify
+                transY = Ui.dipToPx(getResources(), 76);
+            }
         }
-        return true;
+
+        // animation
+        mAction.animate()
+                .rotation(rotation)
+                .translationY(transY)
+                .setInterpolator(new AnticipateOvershootInterpolator(1))
+                .setDuration(480)
+                .start();
     }
 }
