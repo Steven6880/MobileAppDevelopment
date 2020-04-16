@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_home">Home</string>
+    <string name="action_events">Events</string>
+    <string name="action_verification">Verify</string>
+</resources>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!--上面的部分-->
+    <com.google.android.material.appbar.AppBarLayout
+        android:elevation="@dimen/len_2"
+        android:id="@+id/appbar"
+        android:outlineProvider="bounds"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/actionBarWithStatusBarSize"
+        tools:targetApi="LOLLIPOP">
+        <FrameLayout
+            android:paddingLeft="@dimen/len_4"
+            android:paddingRight="@dimen/len_4"
+            android:layout_marginTop="@dimen/statusBarSize"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <!-- 左边部分，头像 -->
+            <com.example.common.widget.a.portraitview
+                android:id="@+id/im_portrait"
+                android:padding="@dimen/len_4"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:layout_margin="@dimen/len_4"
+                android:scaleType="centerCrop"
+                android:src="@drawable/default_portrait"
+                android:foreground="@drawable/ic_touch_menu">
+            </com.example.common.widget.a.portraitview>
+            <!-- 中间部分，相对于FrameLayout居中后，在里面自己再次居中 -->
+            <TextView
+                android:id="@+id/text_title"
+                android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/app_name">
+            </TextView>
+            <!-- 右边部分 -->
+            <ImageView
+                android:id="@+id/im_search"
+                android:tint="?attr/toolbarMenuIconColor"
+                android:padding="@dimen/len_10"
+                android:layout_width="@dimen/len_40"
+                android:layout_height="@dimen/len_40"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_search"
+                android:layout_margin="@dimen/len_4"
+                android:layout_gravity="end|center_vertical"
+                android:foreground="@drawable/ic_touch_menu"
+                android:scaleType="centerInside">
+            </ImageView>
+
+        </FrameLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+    <!-- 上面的部分结束 -->
+
+    <!-- 主体部分 -->
+    <FrameLayout
+        android:id="@+id/lay_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_marginBottom="@dimen/len_52">
+    </FrameLayout>
+    
+    <!-- 浮动按钮 -->
+    <net.qiujuer.genius.ui.widget.FloatActionButton
+        android:id="@+id/btn_floataction"
+        android:tint="@color/white"
+        app:gBackgroundColor="@color/colorAccent"
+        android:padding="@dimen/len_20"
+        android:src="@drawable/ic_group_add"
+        android:layout_width="@dimen/len_52"
+        android:layout_height="@dimen/len_52"
+        app:layout_anchor="@id/lay_container"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_marginBottom="@dimen/len_68"
+        android:layout_marginEnd="@dimen/len_16">
+    </net.qiujuer.genius.ui.widget.FloatActionButton>
+
+    <!-- 底部主体 -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/navigation"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/len_52"
+        android:layout_gravity="bottom"
+        app:menu="@menu/navigation_items"
+        app:itemIconTint="@color/text_nav"
+        app:itemTextColor="@color/text_nav"
+        android:background="@color/white"
+        android:elevation="@dimen/len_4"
+        android:outlineProvider="bounds"
+        tools:targetApi="LOLLIPOP"
+        android:translationZ="@dimen/len_8">
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

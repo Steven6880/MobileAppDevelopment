@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/action_home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_events"
+        android:icon="@drawable/ic_group"
+        android:title="@string/action_events"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_verification"
+        android:icon="@drawable/ic_contact"
+        android:title="@string/action_verification"
+        app:showAsAction="ifRoom" />
+</menu>
