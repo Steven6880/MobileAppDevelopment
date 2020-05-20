@@ -16,17 +16,16 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 
 
 每日更新：
-截止目前添加的库：
-    firebaseVersion = '16.0.4';
-    butterknifeVersion = '10.2.1';
-    appcompatVersion = '1.0.2';
-    recyclerviewVersion = '1.1.0';
-    geniusVersion = '2.1.1';
-    circleimageviewVersion = '2.1.0';
-    materialVersion = '1.1.0-alpha09';
-    glideVersion = '4.11.0';
-    lang(自己添加)
-截止目前添加的包：
-    style
-    language
-    color
+依赖文件：
+> firebase-core:17.0.0'
+> firebase-analytics:17.0.0'
+> firebase-auth:17.0.0'
+> firebase-database:17.0.0'
+> firebaseVersion = '16.0.4';
+> butterknifeVersion = '10.2.1';
+> material:1.1.0-alpha09
+> glide:4.11.0
+> matisse:0.5.2
+> easypermissions:3.0.0
+> ucrop:2.2.5-native
+> navigation-fragment:2.2.2
