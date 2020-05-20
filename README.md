@@ -17,6 +17,7 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 - RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
 
 - WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+> Code:https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/WelcomeActivity.java
 
 # Implements 
 > appcompat:1.1.0
