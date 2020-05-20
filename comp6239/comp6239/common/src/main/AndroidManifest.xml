@@ -1,7 +1,2 @@
-<<<<<<< HEAD
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.common" />
-=======
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.common" />
->>>>>>> 87ea13dcc63eaf6c2826a1f70c5aea3654665388
+    package="com.jiuwfung.common" />

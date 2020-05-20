@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,6 +10,7 @@
     <!--上面的部分-->
     <com.google.android.material.appbar.AppBarLayout
         android:elevation="@dimen/len_2"
+        android:background="@color/colorAccent"
         android:id="@+id/appbar"
         android:outlineProvider="bounds"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <!-- 左边部分，头像 -->
-            <com.example.common.widget.a.portraitview
+            <com.jiuwfung.comp6239.widget.PortraitView
                 android:id="@+id/im_portrait"
                 android:padding="@dimen/len_4"
                 android:layout_width="@dimen/len_40"
@@ -32,7 +32,7 @@
                 android:scaleType="centerCrop"
                 android:src="@drawable/default_portrait"
                 android:foreground="@drawable/ic_touch_menu">
-            </com.example.common.widget.a.portraitview>
+            </com.jiuwfung.comp6239.widget.PortraitView>
             <!-- 中间部分，相对于FrameLayout居中后，在里面自己再次居中 -->
             <TextView
                 android:id="@+id/text_title"
@@ -43,20 +43,6 @@
                 android:gravity="center"
                 android:text="@string/app_name">
             </TextView>
-            <!-- 右边部分 -->
-            <ImageView
-                android:id="@+id/im_search"
-                android:tint="?attr/toolbarMenuIconColor"
-                android:padding="@dimen/len_10"
-                android:layout_width="@dimen/len_40"
-                android:layout_height="@dimen/len_40"
-                android:contentDescription="@string/app_name"
-                android:src="@drawable/ic_search"
-                android:layout_margin="@dimen/len_4"
-                android:layout_gravity="end|center_vertical"
-                android:foreground="@drawable/ic_touch_menu"
-                android:scaleType="centerInside">
-            </ImageView>
 
         </FrameLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -70,7 +56,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="@dimen/len_52">
     </FrameLayout>
-    
+
     <!-- 浮动按钮 -->
     <net.qiujuer.genius.ui.widget.FloatActionButton
         android:id="@+id/btn_floataction"
@@ -101,27 +87,4 @@
         tools:targetApi="LOLLIPOP"
         android:translationZ="@dimen/len_8">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/actionBarWithStatusBarSize">
-
-        <!-- 帧布局消耗资源小,将其移出状态栏，只保留顶部-->
-        <FrameLayout
-            android:id="@+id/appbar"
-            android:layout_marginTop="@dimen/statusBarSize"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
-    </com.google.android.material.appbar.AppBarLayout>
-
->>>>>>> 87ea13dcc63eaf6c2826a1f70c5aea3654665388
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

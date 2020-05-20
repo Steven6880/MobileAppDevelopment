@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="label_permission_network">网络访问</string>
+    <string name="label_permission_network_desc">用于即时通讯传输</string>
+    <string name="label_permission_read">读取文件</string>
+    <string name="label_permission_read_desc">用于设置头像与发送图片</string>
+    <string name="label_permission_write">写外部文件</string>
+    <string name="label_permission_write_desc">用于OSS日志存储</string>
+    <string name="label_permission_record_audio">麦克风</string>
+    <string name="label_permission_record_audio_desc">用于音频聊天</string>
+    <string name="label_permission_submit">授权</string>
+    <string name="label_permission_ok">授权成功！</string>
+
+    <string name="label_update_info_tips">Update Information</string>
+    <string name="label_login_welcome">Login</string>
+    <string name="label_submit">Submit</string>
+    <string name="label_login">Login</string>
+    <string name="label_email">Email</string>
+    <string name="label_year">Choose Your Year</string>
+    <string name="label_group">Choose Your Group</string>
+    <string name="label_edit_father_name">Father First Name</string>
+    <string name="label_edit_father_number">Father Phone Number</string>
+    <string name="label_edit_mother_name">Mother First Name</string>
+    <string name="label_edit_mother_number">Mother Phone Number</string>
+    <string name="label_edit_student_id">Student ID</string>
+    <string name="label_edit_contact_number">Contact Number</string>
+    <string name="Label_edit_relation">Relation</string>
+    <string name="label_register_welcome">Welcome!</string>
+    <string name="label_register">Sign Up</string>
+    <string name="label_password">Password</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="label_portrait_tips">Choose Your Photo</string>
+    <string name="Label_register_portrait_tips">Choose Your Photo and Gender</string>
+    <string name="label_first_name">First Name</string>
+    <string name="label_last_name">Last Name</string>
+    <string name="label_desc_tips">Describe Yourself</string>
+    <string name="label_sex_man">Male</string>
+    <string name="label_sex_woman">Female</string>
+    <string name="label_go_register">Go Sign up!</string>
+    <string name="label_go_login">Go Log in!</string>
+    <string name="label_forget_password">Forget Password?</string>
+    <string name="Label_student">Student</string>
+    <string name="Label_parent">Parent</string>
+
+    <string name="label_follows">Follows\n%s</string>
+    <string name="label_following">Following\n%s</string>
+    <string name="label_gallery_select_max_size">至多选择%s张</string>
+    <string name="label_gallery_selected_size">已选%s张</string>
+
+    <string name="label_group_name">群名称</string>
+    <string name="label_group_desc">群描述</string>
+    <string name="label_group_member_select">群成员</string>
+
+    <string name="label_group_create_invalid">所有项都是必须，并且至少选择一名成员!</string>
+    <string name="label_group_member_add_invalid">没有新增加的成员!</string>
+    <string name="label_group_create_succeed">创建群成功!</string>
+
+    <string name="label_chat_edit_hint">Type something to send…</string>
+
+    <string name="toast_audio_play_error">播放失败！</string>
+    <string name="toast_audio_record_time_short_error">录音时间太短!</string>
+
+    <string name="toast_download_error">下载失败!</string>
+</resources>
