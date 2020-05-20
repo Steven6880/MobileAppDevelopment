@@ -12,7 +12,13 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 对于floatactionbutton，只希望在events界面中显示，在其他界面中是不需要的。为了美观，对其添加了动画，先y轴旋转，加了弹性差值器，动画总时间是480ms。
 
 # 2020.5.19更新
-- 将注册功能完全实现
+> RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
+
+> 密码：comp6239
+
+> WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+
+> 密码：comp6239
 
 
 每日更新：
