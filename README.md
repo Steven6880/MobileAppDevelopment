@@ -25,6 +25,8 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 
 > firebase-database:17.0.0'
 
+> firebase-storage:19.1.1
+
 > firebaseVersion = '16.0.4';
 
 > butterknifeVersion = '10.2.1';
