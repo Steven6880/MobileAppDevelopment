@@ -14,6 +14,16 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 对于floatactionbutton，只希望在events界面中显示，在其他界面中是不需要的。为了美观，对其添加了动画，先y轴旋转，加了弹性差值器，动画总时间是480ms。
 
 # Login and Register
+### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+
+>Code:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/WelcomeActivity.java
+
+> XML Code:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_welcome.xml
+
 ### RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
 
 > Code:
@@ -24,15 +34,15 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_register.xml
 
-### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+### LoginFragment:   hhttps://mubu.com/doc/3cXHu_wNDyw
 
->Code:
+> Code:
 
-https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/WelcomeActivity.java
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/welcome/fragments/LoginFragment.java
 
 > XML Code:
 
-https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_welcome.xml
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_login.xml
 
 # Implements 
 > appcompat:1.1.0
