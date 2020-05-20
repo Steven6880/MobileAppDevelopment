@@ -24,8 +24,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.jiuwfung.comp6239.MainActivity;
 import com.jiuwfung.comp6239.R;
+import com.jiuwfung.comp6239.WelcomeActivity;
 import com.jiuwfung.comp6239.helper.WelcomeTrigger;
 
 import net.qiujuer.genius.ui.widget.Button;
@@ -40,7 +45,7 @@ import butterknife.OnClick;
  */
 public class LoginFragment extends Fragment {
     public FirebaseAnalytics mFirebaseAnalytics;
-    public FirebaseAuth mAuth;
+    public FirebaseAuth mAuth=FirebaseAuth.getInstance();
 
     public WelcomeTrigger mWelcomeTrigger;
     @BindView(R.id.edit_email)
@@ -82,7 +87,6 @@ public class LoginFragment extends Fragment {
             String useremail = user.getEmail();
             account.setText(useremail);
         }
-
         return view;
     }
 
@@ -137,14 +141,9 @@ public class LoginFragment extends Fragment {
 
                 MainActivity.show(getActivity());
 
-
-//                Intent intent = new Intent(getActivity() , MainActivity.class);
-//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
-//                startActivity(intent);
-
+                getActivity().finish();
             }
         });
-//
     }
 
     @Override

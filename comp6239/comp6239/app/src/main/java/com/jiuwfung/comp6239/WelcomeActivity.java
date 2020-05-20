@@ -191,5 +191,10 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
     protected void onResume() {
         super.onResume();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
 
