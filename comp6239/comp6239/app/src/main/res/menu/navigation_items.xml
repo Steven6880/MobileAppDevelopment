@@ -12,8 +12,8 @@
         android:title="@string/action_events"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_verification"
+        android:id="@+id/action_verify"
         android:icon="@drawable/ic_contact"
-        android:title="@string/action_verification"
+        android:title="@string/action_verify"
         app:showAsAction="ifRoom" />
 </menu>

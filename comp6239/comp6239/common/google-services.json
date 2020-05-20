@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "648057260764",
+    "firebase_url": "https://groupcoursework-a7db6.firebaseio.com",
+    "project_id": "groupcoursework-a7db6",
+    "storage_bucket": "groupcoursework-a7db6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648057260764:android:f452a20d704ed97ccd0219",
+        "android_client_info": {
+          "package_name": "com.jiuwfung.common"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "648057260764-p4cegac1sub4n757tfbvkm7kp0jlh2gm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAq1LpvObuaLKxnKi-Ccg1xJHsumnCfDPg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "648057260764-p4cegac1sub4n757tfbvkm7kp0jlh2gm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
