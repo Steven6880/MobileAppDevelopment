@@ -90,14 +90,6 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
     @Override
     protected void onStart() {
         super.onStart();
-
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.lay_container, mCurrentFragment)
-//                .commit();
-
-
-
         onSetBackGround();
 
     }

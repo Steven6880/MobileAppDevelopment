@@ -45,6 +45,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.jiuwfung.comp6239.Application;
 import com.jiuwfung.comp6239.R;
 import com.jiuwfung.comp6239.helper.MyGlideEngine;
@@ -81,6 +84,8 @@ public class RegisterFragment extends Fragment {
     String mPicture;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    StorageReference mStoragepicture;
     DatabaseReference mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
     DatabaseReference mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
     DatabaseReference mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
@@ -185,7 +190,10 @@ public class RegisterFragment extends Fragment {
     private static String STRING_GROUP = "";
     private static String INT_GROUP = "0";
     // Length of Group, for Student ID
-
+    private static String STRING_ACCOUNT;
+    private static Uri resultUri;
+    private static File RESULT_URI;
+    private static String UID;
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -193,6 +201,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mStorage = FirebaseStorage.getInstance().getReference();
     }
 
     @Override
@@ -304,7 +313,7 @@ public class RegisterFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setIcon(R.drawable.ic_group);
-        builder.setTitle("Please Choose Your Year");
+        builder.setTitle("Please Choose Your Group");
         builder.setSingleChoiceItems(grouplist, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -374,6 +383,7 @@ public class RegisterFragment extends Fragment {
         String childID = (mChildID.getText().toString());
         String contactnumbner = (mContactnumber.getText().toString());
         String relation = STRING_RELATION;
+        STRING_ACCOUNT = account.substring(0,account.indexOf("@"));
 
         if (INT_PICTURE!=1){
             Toast.makeText( getActivity() , "Choose Your Photo!" , Toast.LENGTH_LONG).show();
@@ -442,7 +452,6 @@ public class RegisterFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(password.equals(confirm_password)){
-                            //checkpoint
                             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                             builder.setTitle("PLease Wait!");
                             builder.setMessage("Please Wait!");
@@ -462,6 +471,7 @@ public class RegisterFragment extends Fragment {
                                                 //set username;
                                                 FirebaseUser user = mAuth.getCurrentUser();
                                                 UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setDisplayName(name).build();
+                                                UID = user.getUid();
 
                                                 //update data
                                                 user.updateProfile(request);
@@ -489,9 +499,23 @@ public class RegisterFragment extends Fragment {
                                                             Account.put("StudentID" , studentID);
                                                             Account.put("Year" , STRING_YEAR);
                                                             Account.put("Group" , STRING_YEAR+"_"+STRING_GROUP);
+                                                            Account.put("Portrait" , UID+".jpg");
                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                             mDatagroup = mDatayear.child(STRING_YEAR+"_"+STRING_GROUP);
                                                             //For Student
+
+                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                            mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                                @Override
+                                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                    Toast.makeText(getActivity() , "upload portriat sucess!" , Toast.LENGTH_LONG).show();
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
+                                                                }
+                                                            });
 
                                                             mDatastudent = mDatagroup.child(studentID);
                                                             mDatafather = mDatastudent.child("Father");
@@ -544,7 +568,7 @@ public class RegisterFragment extends Fragment {
                                                             });
                                                             mDatastudents.child(studentID).child("Father").setValue(Father);
                                                             mDatastudents.child(studentID).child("Mother").setValue(Mother);
-                                                            mDataaccounts.push().setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            mDataaccounts.child(UID).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
                                                                     Toast.makeText(getActivity() , "add account to database!",Toast.LENGTH_LONG).show();
@@ -647,7 +671,7 @@ public class RegisterFragment extends Fragment {
                                                         if(REQUEST_CODE_SWITCH==0){
 
                                                         }else {
-                                                            // to get Student Group
+                                                            // to get Student Information
                                                             mDatastudents.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                 @Override
                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -690,15 +714,33 @@ public class RegisterFragment extends Fragment {
                                                                                 });
                                                                             }
                                                                             // For Father
+                                                                            STRING_ACCOUNT = account.substring(0 , account.indexOf("@"));
                                                                             Father.put("Email" , account);
                                                                             Father.put("LastName" , lastname);
                                                                             Account.put("Email" , account);
                                                                             Account.put("ChildID" , childID);
                                                                             Account.put("Identity" , "Parent");
+                                                                            Account.put("Portrait" , STRING_ACCOUNT+".jpg");
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
                                                                             mDatafather = mDatastudent.child("Father");
+
+                                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                                            mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                                    //checkpoint
+                                                                                    Toast.makeText(getActivity() , "upload portriat sucess!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    //checkpoint
+                                                                                    Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            });
+
                                                                             mDatafather.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                                 @Override
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -722,7 +764,7 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
-                                                                            mDataaccounts.push().setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            mDataaccounts.child(STRING_ACCOUNT).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(getActivity() , "Add information to Database!", Toast.LENGTH_LONG).show();
@@ -755,15 +797,33 @@ public class RegisterFragment extends Fragment {
                                                                                 });
                                                                             }
                                                                             // For Mother
+                                                                            STRING_ACCOUNT = account.substring(0 , account.indexOf("@"));
                                                                             Mother.put("Email", account);
                                                                             Mother.put("LastName" , lastname);
                                                                             Account.put("Identity" , "Parent");
                                                                             Account.put("ChildID" , childID );
                                                                             Account.put("Email" , account);
+                                                                            Account.put("Portrait" , STRING_ACCOUNT+".jpg");
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
                                                                             mDatamother = mDatastudent.child("Mother");
+
+                                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                                            mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                                                                @Override
+                                                                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                                                                    //checkpoint
+                                                                                    Toast.makeText(getActivity() , "upload portriat sucess!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    //checkpoint
+                                                                                    Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            });
+
                                                                             mDatamother.addListenerForSingleValueEvent(new ValueEventListener() {
                                                                                 @Override
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -806,7 +866,7 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
-                                                                            mDataaccounts.push().setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            mDataaccounts.child(STRING_ACCOUNT).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(getActivity() , "Add Information to Database!" , Toast.LENGTH_LONG).show();
@@ -1061,7 +1121,8 @@ public class RegisterFragment extends Fragment {
         }
 
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
-            final Uri resultUri = UCrop.getOutput(data);
+            resultUri = UCrop.getOutput(data);
+            //Toast.makeText(getActivity() , resultUri.toString().substring(0,resultUri.toString().indexOf(".jpg")) , Toast.LENGTH_LONG).show();
             if(resultUri != null){
                 loadPortrait(resultUri);
             }

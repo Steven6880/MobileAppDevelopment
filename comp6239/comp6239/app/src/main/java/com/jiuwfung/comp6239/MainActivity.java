@@ -23,6 +23,7 @@ import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.storage.StorageReference;
 import com.jiuwfung.comp6239.helper.NavHelper;
 import com.jiuwfung.comp6239.main.fragments.EventsFragment;
 import com.jiuwfung.comp6239.main.fragments.HomeFragment;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity
         NavHelper.OnTabChangedListener<Integer>{
 
     public NavHelper mNavHelper;
+    public StorageReference mStoragereference;
 
     @BindView(R.id.im_portrait)
     PortraitView mPortraitView;

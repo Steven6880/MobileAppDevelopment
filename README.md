@@ -37,7 +37,6 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 # Implements 
 > appcompat:1.1.0
 
-
 > constraintlayout:1.1.3
 
 > legacy-support-v4:1.0.0
@@ -49,6 +48,8 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 > firebase-auth:17.0.0
 
 > firebase-database:17.0.0
+
+> firebase-ui-storage:6.2.1
 
 > navigation-fragment:2.2.2
 
