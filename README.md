@@ -18,14 +18,25 @@ fragment的detach方法是将fragment从布局中移出，但是会加入缓存�
 每日更新：
 依赖文件：
 > firebase-core:17.0.0'
+
 > firebase-analytics:17.0.0'
+
 > firebase-auth:17.0.0'
+
 > firebase-database:17.0.0'
+
 > firebaseVersion = '16.0.4';
+
 > butterknifeVersion = '10.2.1';
+
 > material:1.1.0-alpha09
+
 > glide:4.11.0
+
 > matisse:0.5.2
+
 > easypermissions:3.0.0
+
 > ucrop:2.2.5-native
+
 > navigation-fragment:2.2.2
