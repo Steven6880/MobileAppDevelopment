@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.jiuwfung.comp6239.helper.MyGlideEngine;
 import com.jiuwfung.comp6239.helper.WelcomeStorage;
 import com.jiuwfung.comp6239.helper.WelcomeTrigger;
@@ -52,6 +53,7 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
 
     public FirebaseAnalytics mFirebaseAnalytics;
     public FirebaseAuth mAuth;
+    public FirebaseUser mUser;
 
     ImageView mBackGround;
     PortraitView mPortraitview;
@@ -67,13 +69,13 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
         mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
         mBackGround = (ImageView) findViewById(R.id.im_bg);
 
         mCurrentFragment = mLoginFragment = new LoginFragment();
         mRegisterFragment = new RegisterFragment();
 
         mPortraitview = (PortraitView) findViewById(R.id.im_register_portrait);
-
 
         getSupportFragmentManager()
                 .beginTransaction()

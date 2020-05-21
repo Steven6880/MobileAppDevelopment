@@ -82,6 +82,11 @@ public class LoginFragment extends Fragment {
 
         FirebaseUser user = mAuth.getCurrentUser();
 
+        if(user!=null){
+            MainActivity.show(getActivity());
+            getActivity().finish();
+        }
+
         EditText account = view.findViewById(R.id.edit_email);
         if(user!=null){
             String useremail = user.getEmail();

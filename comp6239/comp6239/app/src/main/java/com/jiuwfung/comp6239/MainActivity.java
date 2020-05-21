@@ -164,8 +164,8 @@ public class MainActivity extends AppCompatActivity
                 .start();
     }
 
-    @OnClick(R.id.im_portrait)
-    void onPortraitClick(){
-        AccountActivity.show(this);
-    }
+//    @OnClick(R.id.im_portrait)
+//    void onPortraitClick(){
+//        AccountActivity.show(this);
+//    }
 }
