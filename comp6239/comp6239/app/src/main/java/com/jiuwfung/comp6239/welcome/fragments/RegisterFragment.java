@@ -656,6 +656,7 @@ public class RegisterFragment extends Fragment {
 
                                                 //update data
                                                 user.updateProfile(request);
+                                                UID = user.getUid();
 
 
                                                 user.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -721,6 +722,9 @@ public class RegisterFragment extends Fragment {
                                                                             Account.put("ChildID" , childID);
                                                                             Account.put("Identity" , "Parent");
                                                                             Account.put("Portrait" , STRING_ACCOUNT+".jpg");
+                                                                            Account.put("LastName" , lastname);
+                                                                            Account.put("Number" , contactnumbner);
+                                                                            Account.put("Relation" , "Father");
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
@@ -746,6 +750,28 @@ public class RegisterFragment extends Fragment {
                                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                                     String tem_father_number = dataSnapshot.child("Number").getValue().toString();
                                                                                     String tem_father_name = dataSnapshot.child("FirstName").getValue().toString();
+                                                                                    if(tem_father_name.equals(name)){
+                                                                                        Father.put("FirstName" , name);
+                                                                                        Account.put("FirstName" , name);
+                                                                                    }else {
+                                                                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                Toast.makeText(getActivity() , "Your Account Was Deleted, Cause Your Name Maybe Wrong!", Toast.LENGTH_LONG).show();
+                                                                                            }
+                                                                                        });
+                                                                                    }
+                                                                                    if(tem_father_number.equals(contactnumbner)){
+                                                                                        Father.put("Number" , contactnumbner);
+                                                                                        Account.put("Number" , contactnumbner);
+                                                                                    }else {
+                                                                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                            @Override
+                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                Toast.makeText(getActivity() , "Your Account Was Deleted, Cause Your ContactNumber Maybe Wrong!", Toast.LENGTH_LONG).show();
+                                                                                            }
+                                                                                        });
+                                                                                    }
 
                                                                                 }
                                                                                 @Override
@@ -764,7 +790,7 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
-                                                                            mDataaccounts.child(STRING_ACCOUNT).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            mDataaccounts.child(UID).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(getActivity() , "Add information to Database!", Toast.LENGTH_LONG).show();
@@ -804,6 +830,9 @@ public class RegisterFragment extends Fragment {
                                                                             Account.put("ChildID" , childID );
                                                                             Account.put("Email" , account);
                                                                             Account.put("Portrait" , STRING_ACCOUNT+".jpg");
+                                                                            Account.put("Number" , contactnumbner);
+                                                                            Account.put("LastName" , lastname);
+                                                                            Account.put("Relation" , "Mother");
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
@@ -831,6 +860,7 @@ public class RegisterFragment extends Fragment {
                                                                                     String tem_father_name = dataSnapshot.child("FirstName").getValue().toString();
                                                                                     if(tem_father_name.equals(name)){
                                                                                         Mother.put("FirstName" , name);
+                                                                                        Account.put("FirstName" , name);
                                                                                     }else {
                                                                                         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                             @Override
@@ -841,6 +871,7 @@ public class RegisterFragment extends Fragment {
                                                                                     }
                                                                                     if(tem_father_number.equals(contactnumbner)){
                                                                                         Mother.put("Number" , contactnumbner);
+                                                                                        Account.put("Number" , contactnumbner);
                                                                                     }else {
                                                                                         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                                             @Override
@@ -866,7 +897,7 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
-                                                                            mDataaccounts.child(STRING_ACCOUNT).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                            mDataaccounts.child(UID).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(getActivity() , "Add Information to Database!" , Toast.LENGTH_LONG).show();

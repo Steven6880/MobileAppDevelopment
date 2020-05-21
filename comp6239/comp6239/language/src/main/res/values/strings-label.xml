@@ -16,6 +16,8 @@
     <string name="label_submit">Submit</string>
     <string name="label_login">Login</string>
     <string name="label_email">Email</string>
+    <string name="label_time">Time</string>
+    <string name="label_location">Location</string>
     <string name="label_year">Choose Your Year</string>
     <string name="label_group">Choose Your Group</string>
     <string name="label_edit_father_name">Father First Name</string>
@@ -26,6 +28,7 @@
     <string name="label_edit_contact_number">Contact Number</string>
     <string name="Label_edit_relation">Relation</string>
     <string name="label_register_welcome">Welcome!</string>
+    <string name="label_create_event">Create Event</string>
     <string name="label_register">Sign Up</string>
     <string name="label_password">Password</string>
     <string name="label_confirm_password">Confirm Password</string>
@@ -41,15 +44,18 @@
     <string name="label_forget_password">Forget Password?</string>
     <string name="Label_student">Student</string>
     <string name="Label_parent">Parent</string>
+    <string name="label_short_description">Short Description. Max 3 Lines.</string>
+    <string name="label_event_title">Event Title</string>
+    <string name="label_event_detail">Event detail. Min 3 lines.</string>
 
     <string name="label_follows">Follows\n%s</string>
     <string name="label_following">Following\n%s</string>
     <string name="label_gallery_select_max_size">至多选择%s张</string>
     <string name="label_gallery_selected_size">已选%s张</string>
 
-    <string name="label_group_name">群名称</string>
-    <string name="label_group_desc">群描述</string>
-    <string name="label_group_member_select">群成员</string>
+    <string name="label_event_name">Event Title</string>
+    <string name="label_event_desc">Event description</string>
+    <string name="label_event_member_select">Choose Member</string>
 
     <string name="label_group_create_invalid">所有项都是必须，并且至少选择一名成员!</string>
     <string name="label_group_member_add_invalid">没有新增加的成员!</string>

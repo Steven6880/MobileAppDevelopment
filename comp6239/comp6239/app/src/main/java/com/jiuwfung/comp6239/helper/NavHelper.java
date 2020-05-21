@@ -105,27 +105,27 @@ public class NavHelper<T> {
 
         if (oldTab != null) {
             if (oldTab.fragment != null) {
-                // 从界面移除，但是还在Fragment的缓存空间中
+                // remove from this view, but store it into cache
                 ft.detach(oldTab.fragment);
             }
         }
 
         if (newTab != null) {
             if (newTab.fragment == null) {
-                // 首次新建
+                // create
                 Fragment fragment = fragmentManager.getFragmentFactory().instantiate(context.getClassLoader(), newTab.clx.getName());
-                // 缓存起来
+                // add cache
                 newTab.fragment = fragment;
-                // 提交到FragmentManger
+                // commit to fragmentManager
                 ft.add(containerId, fragment, newTab.clx.getName());
             } else {
-                // 从FragmentManger的缓存空间中重新加载到界面中
+                // load Fragment From Cache
                 ft.attach(newTab.fragment);
             }
         }
-        // 提交事务
+        // commit it
         ft.commit();
-        // 通知回调
+        // notify & return
         notifyTabSelect(newTab, oldTab);
     }
 

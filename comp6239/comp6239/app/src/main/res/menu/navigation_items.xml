@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_group"
         android:title="@string/action_events"
         app:showAsAction="ifRoom" />
-    <item
-        android:id="@+id/action_verify"
-        android:icon="@drawable/ic_contact"
-        android:title="@string/action_verify"
-        app:showAsAction="ifRoom" />
+<!--    <item-->
+<!--        android:id="@+id/action_verify"-->
+<!--        android:icon="@drawable/ic_contact"-->
+<!--        android:title="@string/action_verify"-->
+<!--        app:showAsAction="ifRoom" />-->
 </menu>

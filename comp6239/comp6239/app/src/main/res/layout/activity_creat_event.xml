@@ -1,0 +1,354 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black_alpha_16"
+    tools:context=".EventActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:background="@color/colorAccent"
+                android:paddingTop="@dimen/statusBarSize"
+                app:titleTextAppearance="@style/TextAppearance.Title">
+
+                <ImageView
+                    android:id="@+id/event_back"
+                    android:layout_width="@dimen/len_40"
+                    android:layout_height="@dimen/len_40"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/ic_back"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"></ImageView>
+
+
+                <ImageView
+                    android:id="@+id/event_create"
+                    android:layout_width="@dimen/len_40"
+                    android:layout_height="@dimen/len_40"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/ic_done"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                </ImageView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ImageView
+            android:id="@+id/im_event_picture"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appbar"
+            android:background="@color/white_alpha_80"
+            android:src="@drawable/ic_add"
+            android:tint="@color/colorAccent">
+        </ImageView>
+
+        <LinearLayout
+            android:id="@+id/linearLayout5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/im_event_picture">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_title"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_event_title"
+                    android:inputType="text"
+                    android:maxLength="30"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_description"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_description"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_event_desc"
+                    android:inputType="text"
+                    android:maxLength="64"
+                    android:maxLines="3"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_description"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_detail"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_event_detail"
+                    android:inputType="text"
+                    android:minLines="3"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/event_time_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_32"
+                    android:layout_height="@dimen/len_32"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_time"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_time"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+                <ImageView
+                    android:layout_width="@dimen/len_32"
+                    android:layout_height="@dimen/len_32"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_location"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_location"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/event_layout_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_time_location">
+
+
+            <Button
+                android:id="@+id/event_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorAccent"
+                android:textSize="@dimen/font_16">
+            </Button>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</ScrollView>

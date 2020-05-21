@@ -22,7 +22,6 @@
             android:layout_marginTop="@dimen/statusBarSize"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <!-- 左边部分，头像 -->
             <com.jiuwfung.comp6239.widget.PortraitView
                 android:id="@+id/im_portrait"
                 android:padding="@dimen/len_4"
@@ -33,7 +32,6 @@
                 android:src="@drawable/default_portrait"
                 android:foreground="@drawable/ic_touch_menu">
             </com.jiuwfung.comp6239.widget.PortraitView>
-            <!-- 中间部分，相对于FrameLayout居中后，在里面自己再次居中 -->
             <TextView
                 android:id="@+id/text_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Title"
