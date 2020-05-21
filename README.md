@@ -26,7 +26,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_register.xml
 
-### LoginFragment:   hhttps://mubu.com/doc/3cXHu_wNDyw
+### LoginFragment:   https://mubu.com/doc/3cXHu_wNDyw
 
 > Code:
 
