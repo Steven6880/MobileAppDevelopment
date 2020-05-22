@@ -58,7 +58,7 @@
         <ImageView
             android:id="@+id/im_event_picture"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="180dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
@@ -69,6 +69,25 @@
             android:src="@drawable/ic_add"
             android:tint="@color/colorAccent">
         </ImageView>
+
+        <TextView
+            android:id="@+id/choose_event_picture"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="Please Choose Event Picture"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/len_16"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/im_event_picture"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium">
+        </TextView>
 
         <LinearLayout
             android:id="@+id/linearLayout5"
@@ -83,7 +102,7 @@
             android:paddingBottom="@dimen/len_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/im_event_picture">
+            app:layout_constraintTop_toBottomOf="@+id/choose_event_picture">
 
 
             <LinearLayout
@@ -240,7 +259,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/event_time_location"
+            android:id="@+id/event_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -262,37 +281,10 @@
                 android:padding="@dimen/len_4">
 
 
-                <ImageView
-                    android:layout_width="@dimen/len_32"
-                    android:layout_height="@dimen/len_32"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/len_8"
-                    android:layout_marginRight="@dimen/len_8"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_time"
-                    android:tint="@color/colorAccent" />
-
-                <EditText
-                    android:id="@+id/edit_event_time"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/len_4"
-                    android:layout_marginEnd="@dimen/len_2"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/label_time"
-                    android:inputType="text"
-                    android:paddingTop="@dimen/len_8"
-                    android:paddingBottom="@dimen/len_8"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/textSecond"
-                    android:textCursorDrawable="@drawable/ic_cursor"
-                    android:textSize="@dimen/font_14" />
 
                 <ImageView
-                    android:layout_width="@dimen/len_32"
-                    android:layout_height="@dimen/len_32"
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/len_8"
                     android:layout_marginRight="@dimen/len_8"
@@ -323,6 +315,116 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/event_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_location">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_time"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_event_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_time"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/event_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/bg_account_input"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_8"
+            android:paddingBottom="@dimen/len_8"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_time">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_date"
+                    android:tint="@color/colorAccent" />
+
+                <EditText
+                    android:id="@+id/edit_date"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_date"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/event_layout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -335,7 +437,7 @@
             android:paddingBottom="@dimen/len_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_time_location">
+            app:layout_constraintTop_toBottomOf="@+id/event_date">
 
 
             <Button
@@ -347,6 +449,16 @@
             </Button>
 
         </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/event_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toTopOf="@+id/appbar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"></LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

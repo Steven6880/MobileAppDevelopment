@@ -1,15 +1,17 @@
 package com.jiuwfung.comp6239.helper;
 
+import java.util.List;
+
 public class ParentAdapterItem {
 
     public String Key;
     public String FirstName;
     public String LastName;
-    public String ChildID;
+    public List<String> ChildID;
     public String Number;
     public String Relation;
 
-    ParentAdapterItem(String Key , String FirstName , String LastName , String ChildID,
+    public ParentAdapterItem(String Key , String FirstName , String LastName , List<String> ChildID,
                       String Number , String Relation){
         this.Key = Key;
         this.FirstName = FirstName;

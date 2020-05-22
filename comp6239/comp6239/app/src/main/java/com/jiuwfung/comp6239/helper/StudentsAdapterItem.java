@@ -5,7 +5,7 @@ public class StudentsAdapterItem {
     public String Group;
     public String Year;
 
-    StudentsAdapterItem(String Key , String Group, String Year){
+    public StudentsAdapterItem(String Key , String Group, String Year){
         this.Key = Key;
         this.Group = Group;
         this.Year = Year;

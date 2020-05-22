@@ -146,7 +146,7 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
 
     @AfterPermissionGranted(REQUEST_CODE_STORAGE )
     public void onRequestStorge(){
-        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE , Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE , Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.ACCESS_NETWORK_STATE};
 
         if(EasyPermissions.hasPermissions(this , perms)){
 

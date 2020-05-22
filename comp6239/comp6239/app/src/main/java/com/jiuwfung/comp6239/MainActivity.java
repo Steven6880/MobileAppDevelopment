@@ -8,6 +8,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -48,6 +51,7 @@ import net.qiujuer.genius.ui.widget.FloatActionButton;
 
 import java.io.File;
 import java.util.Objects;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,6 +61,12 @@ public class MainActivity extends AppCompatActivity
         implements BottomNavigationView.OnNavigationItemSelectedListener,
         NavHelper.OnTabChangedListener<Integer>{
 
+    public SharedPreferences sharedIdentity;
+    public SharedPreferences.Editor editorIdentity;
+    public SharedPreferences sharedStudent;
+    public SharedPreferences.Editor editorStudent;
+    public SharedPreferences sharedParent;
+    public SharedPreferences.Editor editorParent;
 
     public FirebaseAuth mAuth ;
     public FirebaseUser mUser;
@@ -67,11 +77,14 @@ public class MainActivity extends AppCompatActivity
     public DatabaseReference mDataaccounts;
 
     public static int INT_IDENTITY = 0;
-    public static String STRING_IDENTITY = "Manager";
+    public static String STRING_IDENTITY = "Student";
     public static String STRING_UID;
+    public static File fileDownloadportrait;
+    public static int MaxPicSize = 1024 * 1024 * 20;
+    public Set<String> SetEvents;
+    public Set<String> SetChildren;
 
     public NavHelper mNavHelper;
-    public StorageReference mStoragereference;
 
     @BindView(R.id.im_portrait)
     PortraitView mPortraitView;
@@ -98,11 +111,23 @@ public class MainActivity extends AppCompatActivity
 
         ButterKnife.bind(this);
 
+        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
+        editorIdentity = sharedIdentity.edit();
+
+        sharedStudent = getSharedPreferences("Student",Context.MODE_PRIVATE);
+        editorStudent = sharedStudent.edit();
+
+        sharedParent = getSharedPreferences("Parent" , Context.MODE_PRIVATE);
+        editorParent = sharedParent.edit();
+
+
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
-//        STRING_UID = mUser.getUid();
-        mStoragepicture = mStorage.child("Accounts/"+STRING_UID+".jpg");
+        //checkpoint
+        //STRING_UID = mUser.getUid();
+        //checkpoint
+        mStoragepicture = mStorage.child("Accounts/LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
         mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
         mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
         mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
@@ -114,6 +139,35 @@ public class MainActivity extends AppCompatActivity
                 .add(R.id.action_events, new NavHelper.Tab<>(EventsFragment.class, R.string.title_events));
 
         mNavigation.setOnNavigationItemSelectedListener(this);
+
+        //Load Portrait
+        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , "LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
+
+        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+                mPortraitView.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mStoragepicture.getFile(fileDownloadportrait)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("download sucess" , taskSnapshot.toString());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Failure" , e.getLocalizedMessage());
+            }
+        });
     }
 
     @Override
@@ -127,21 +181,10 @@ public class MainActivity extends AppCompatActivity
             getIdentity();
         }
 
-        //Load Portrait
-        File fileDownloadportrait = new File(getApplicationContext().getFilesDir() , STRING_UID+".jpg");
-        mStoragepicture.getFile(fileDownloadportrait)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("download sucess" , taskSnapshot.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Failure" , e.getLocalizedMessage());
-            }
-        });
-        loadPortrait(Uri.fromFile(fileDownloadportrait));
+
+        if(fileDownloadportrait!=null){
+            loadPortrait(Uri.fromFile(fileDownloadportrait));
+        }
 
         Glide.with(this)
                 .asDrawable()
@@ -195,12 +238,8 @@ public class MainActivity extends AppCompatActivity
                     mFloat.setImageResource(R.drawable.ic_group_add);
                     rotation = -360;
                 }else {
-                    mFloat.setImageResource(R.drawable.ic_contact_add);
                     transY = Ui.dipToPx(getResources(), 76);
                 }
-            } else {
-                mFloat.setImageResource(R.drawable.ic_contact_add);
-                transY = Ui.dipToPx(getResources(), 76);
             }
         }
 
@@ -240,15 +279,61 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(MainActivity.this , STRING_IDENTITY , Toast.LENGTH_LONG).show();
                 if(STRING_IDENTITY.equals("Manager")){
                     INT_IDENTITY=0;
+                    editorIdentity.putString("Identity" , "Manager");
                     Toast.makeText(MainActivity.this , STRING_IDENTITY , Toast.LENGTH_LONG).show();
                 }
                 if(STRING_IDENTITY.equals("Student")){
                     INT_IDENTITY=1;
+                    editorIdentity.putString("Identity" , "Student");
+
                     Toast.makeText(MainActivity.this , STRING_IDENTITY , Toast.LENGTH_LONG).show();
+
+                    editorStudent.putString("Year" , dataSnapshot.child("Year").getValue().toString());
+                    editorStudent.putString("Email" , dataSnapshot.child("Email").getValue().toString());
+                    editorStudent.putString("Group" , dataSnapshot.child("Group").getValue().toString());
+                    editorStudent.putString("Identity" , dataSnapshot.child("Identity").getValue().toString());
+                    editorStudent.putString("StudentID" , dataSnapshot.child("StudentID").getValue().toString());
+
+                    if(dataSnapshot.child("Events")!=null){
+                        for(DataSnapshot tem_datasnapshot : dataSnapshot.child("Events").getChildren()){
+                            SetEvents.add(tem_datasnapshot.getKey().toString());
+                        }
+                    }
+                    editorStudent.putStringSet("Events" , SetEvents);
+
+                    mDatayears.child(dataSnapshot.child("Year").getValue().toString())
+                            .child(dataSnapshot.child("Group").getValue().toString())
+                            .child(dataSnapshot.child("StudentID").getValue().toString())
+                            .addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    editorParent.putString("FatherName" , dataSnapshot.child("Father").child("FirstName").getValue().toString());
+                                    editorParent.putString("FatherNumber" , dataSnapshot.child("Father").child("Number").getValue().toString());
+                                    editorParent.putString("MotherName" , dataSnapshot.child("Mother").child("FirstName").getValue().toString());
+                                    editorParent.putString("MotherNumber" , dataSnapshot.child("Mother").child("Number").getValue().toString());
+                                }
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
+
                 }
                 if(STRING_IDENTITY.equals("Parent")){
                     INT_IDENTITY=2;
                     Toast.makeText(MainActivity.this , STRING_IDENTITY , Toast.LENGTH_LONG).show();
+                    editorIdentity.putString("Identity" , "Parent");
+
+                    editorParent.putString("Email" , dataSnapshot.child("Email").getValue().toString());
+                    editorParent.putString("FirstName" , dataSnapshot.child("FirstName").getValue().toString());
+                    editorParent.putString("LastName" , dataSnapshot.child("LastName").getValue().toString());
+                    editorParent.putString("Number" , dataSnapshot.child("Number").getValue().toString());
+                    editorParent.putString("Relation" , dataSnapshot.child("Relation").getValue().toString());
+
+                    for (DataSnapshot tem_datasnapshot : dataSnapshot.child("Children").getChildren()){
+                        SetChildren.add(tem_datasnapshot.getKey().toString());
+                    }
+
+                    editorParent.putStringSet("Children" , SetChildren);
                 }
             }
             @Override

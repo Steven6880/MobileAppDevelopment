@@ -17,6 +17,7 @@
     <string name="label_login">Login</string>
     <string name="label_email">Email</string>
     <string name="label_time">Time</string>
+    <string name="label_date">Date</string>
     <string name="label_location">Location</string>
     <string name="label_year">Choose Your Year</string>
     <string name="label_group">Choose Your Group</string>

@@ -40,6 +40,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -84,7 +85,7 @@ public class RegisterFragment extends Fragment {
     String mPicture;
 
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    StorageReference mStorage = FirebaseStorage.getInstance().getReference();
+    StorageReference mStorage = FirebaseStorage.getInstance().getReference().child("Accounts/");
     StorageReference mStoragepicture;
     DatabaseReference mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
     DatabaseReference mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
@@ -101,6 +102,7 @@ public class RegisterFragment extends Fragment {
     HashMap Mother = new HashMap();
     HashMap Students = new HashMap();
     HashMap Account = new HashMap();
+    HashMap Child = new HashMap();
 
     @BindView(R.id.register_view)
     ScrollView mRegisterView;
@@ -194,6 +196,13 @@ public class RegisterFragment extends Fragment {
     private static Uri resultUri;
     private static File RESULT_URI;
     private static String UID;
+
+    private String tem_student_name;
+    private String tem_father_number;
+    private String tem_father_name;
+    private String tem_mother_number ;
+    private String tem_mother_name;
+
     public RegisterFragment() {
         // Required empty public constructor
     }
@@ -201,7 +210,7 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mStorage = FirebaseStorage.getInstance().getReference();
+        mStorage = FirebaseStorage.getInstance().getReference().child("Accounts");
     }
 
     @Override
@@ -494,6 +503,9 @@ public class RegisterFragment extends Fragment {
                                                             Mother.put("Number",mother_number);
                                                             Students.put("Group" , STRING_YEAR+"_"+STRING_GROUP);
                                                             Students.put("Year" , STRING_YEAR);
+                                                            Students.put("FirstName" , name);
+                                                            Students.put("Portrait" , UID+".jpg");
+                                                            Account.put("FirstName" , name);
                                                             Account.put("Identity" , "Student");
                                                             Account.put("Email" , account);
                                                             Account.put("StudentID" , studentID);
@@ -504,7 +516,7 @@ public class RegisterFragment extends Fragment {
                                                             mDatagroup = mDatayear.child(STRING_YEAR+"_"+STRING_GROUP);
                                                             //For Student
 
-                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                            mStoragepicture = mStorage.child(UID+".jpg");
                                                             mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                                 @Override
                                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -513,7 +525,7 @@ public class RegisterFragment extends Fragment {
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
+                                                                    Toast.makeText(getActivity() , "upload portriat failure!"+e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
                                                                 }
                                                             });
 
@@ -678,13 +690,29 @@ public class RegisterFragment extends Fragment {
                                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                                                     STRING_GROUP = dataSnapshot.child(childID).child("Group").getValue().toString();
                                                                     STRING_YEAR = dataSnapshot.child(childID).child("Year").getValue().toString();
-                                                                    String tem_father_number = dataSnapshot.child(childID).child("Father").child("Number").getValue().toString();
-                                                                    String tem_father_name = dataSnapshot.child(childID).child("Father").child("FirstName").getValue().toString();
-                                                                    String tem_mother_number = dataSnapshot.child(childID).child("Mother").child("Number").getValue().toString();
-                                                                    String tem_mother_name = dataSnapshot.child(childID).child("Mother").child("FirstName").getValue().toString();
 
-                                                                    Account.put("Year" , STRING_YEAR);
-                                                                    Account.put("Group" , STRING_GROUP);
+                                                                    if(dataSnapshot.child(childID).child("FirstName").getValue().toString()!=null){
+                                                                        tem_student_name = dataSnapshot.child(childID).child("FirstName").getValue().toString();
+                                                                    }
+
+                                                                    if(dataSnapshot.child(childID).child("Father").child("Number").getValue().toString()!=null){
+                                                                        tem_father_number = dataSnapshot.child(childID).child("Father").child("Number").getValue().toString();
+                                                                    }
+
+                                                                    if (dataSnapshot.child(childID).child("Father").child("FirstName").getValue().toString()!=null){
+                                                                        tem_father_name = dataSnapshot.child(childID).child("Father").child("FirstName").getValue().toString();
+                                                                    }
+
+                                                                    if (dataSnapshot.child(childID).child("Mother").child("Number").getValue().toString()!=null){
+                                                                        tem_mother_number = dataSnapshot.child(childID).child("Mother").child("Number").getValue().toString();
+                                                                    }
+                                                                    //checkpoint
+
+                                                                    if(dataSnapshot.child(childID).child("Mother").child("FirstName").getValue().toString()!=null){
+                                                                        tem_mother_name = dataSnapshot.child(childID).child("Mother").child("FirstName").getValue().toString();
+                                                                    }
+
+                                                                    Child.put(childID , tem_student_name);
                                                                     if(STRING_GROUP.isEmpty()){
                                                                         user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
@@ -715,32 +743,29 @@ public class RegisterFragment extends Fragment {
                                                                                 });
                                                                             }
                                                                             // For Father
-                                                                            STRING_ACCOUNT = account.substring(0 , account.indexOf("@"));
                                                                             Father.put("Email" , account);
                                                                             Father.put("LastName" , lastname);
                                                                             Account.put("Email" , account);
-                                                                            Account.put("ChildID" , childID);
                                                                             Account.put("Identity" , "Parent");
-                                                                            Account.put("Portrait" , STRING_ACCOUNT+".jpg");
+                                                                            Account.put("Portrait" , UID+".jpg");
                                                                             Account.put("LastName" , lastname);
                                                                             Account.put("Number" , contactnumbner);
                                                                             Account.put("Relation" , "Father");
+                                                                            Account.put("FirstName" , name);
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
                                                                             mDatafather = mDatastudent.child("Father");
 
-                                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                                            mStoragepicture = mStorage.child(UID+".jpg");
                                                                             mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                                                 @Override
                                                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                                                    //checkpoint
                                                                                     Toast.makeText(getActivity() , "upload portriat sucess!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                                 @Override
                                                                                 public void onFailure(@NonNull Exception e) {
-                                                                                    //checkpoint
                                                                                     Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
@@ -801,7 +826,19 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add account failure!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
-                                                                        }else {
+                                                                            mDataaccounts.child(UID).child("Children").setValue(Child).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    Toast.makeText(getActivity() , "Add child information to Database!", Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    Toast.makeText(getActivity() , "add account failure!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            });
+                                                                        }
+                                                                        else {
                                                                             if(tem_mother_name.equals(name)){
                                                                                 Mother.put("FirstName" , name);
                                                                             }else {
@@ -827,18 +864,18 @@ public class RegisterFragment extends Fragment {
                                                                             Mother.put("Email", account);
                                                                             Mother.put("LastName" , lastname);
                                                                             Account.put("Identity" , "Parent");
-                                                                            Account.put("ChildID" , childID );
                                                                             Account.put("Email" , account);
-                                                                            Account.put("Portrait" , STRING_ACCOUNT+".jpg");
+                                                                            Account.put("Portrait" , UID+".jpg");
                                                                             Account.put("Number" , contactnumbner);
                                                                             Account.put("LastName" , lastname);
                                                                             Account.put("Relation" , "Mother");
+                                                                            Account.put("FirstName" , name);
                                                                             mDatayear = mDatayears.child(STRING_YEAR);
                                                                             mDatagroup = mDatayear.child(STRING_GROUP);
                                                                             mDatastudent = mDatagroup.child(childID);
                                                                             mDatamother = mDatastudent.child("Mother");
 
-                                                                            mStoragepicture = mStorage.child("Accounts/"+UID+".jpg");
+                                                                            mStoragepicture = mStorage.child(UID+".jpg");
                                                                             mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                                                 @Override
                                                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -853,38 +890,6 @@ public class RegisterFragment extends Fragment {
                                                                                 }
                                                                             });
 
-                                                                            mDatamother.addListenerForSingleValueEvent(new ValueEventListener() {
-                                                                                @Override
-                                                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                                                                    String tem_father_number = dataSnapshot.child("Number").getValue().toString();
-                                                                                    String tem_father_name = dataSnapshot.child("FirstName").getValue().toString();
-                                                                                    if(tem_father_name.equals(name)){
-                                                                                        Mother.put("FirstName" , name);
-                                                                                        Account.put("FirstName" , name);
-                                                                                    }else {
-                                                                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                            @Override
-                                                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                                                Toast.makeText(getActivity() , "Your Account Was Deleted, Cause Your Name Maybe Wrong!", Toast.LENGTH_LONG).show();
-                                                                                            }
-                                                                                        });
-                                                                                    }
-                                                                                    if(tem_father_number.equals(contactnumbner)){
-                                                                                        Mother.put("Number" , contactnumbner);
-                                                                                        Account.put("Number" , contactnumbner);
-                                                                                    }else {
-                                                                                        user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                            @Override
-                                                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                                                Toast.makeText(getActivity() , "Your Account Was Deleted, Cause Your ContactNumber Maybe Wrong!", Toast.LENGTH_LONG).show();
-                                                                                            }
-                                                                                        });
-                                                                                    }
-                                                                                }
-                                                                                @Override
-                                                                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                                                                }
-                                                                            });
                                                                             mDatamother.setValue(Mother)
                                                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                         @Override
@@ -901,6 +906,12 @@ public class RegisterFragment extends Fragment {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
                                                                                     Toast.makeText(getActivity() , "Add Information to Database!" , Toast.LENGTH_LONG).show();
+                                                                                }
+                                                                            });
+                                                                            mDataaccounts.child(UID).child("Children").setValue(Child).addOnFailureListener(new OnFailureListener() {
+                                                                                @Override
+                                                                                public void onFailure(@NonNull Exception e) {
+                                                                                    Toast.makeText(getActivity() , "Add Child Information to Database!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
                                                                         }

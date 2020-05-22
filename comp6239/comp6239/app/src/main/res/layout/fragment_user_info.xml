@@ -1,36 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:background="@drawable/bg_src_tianjin"
-    tools:context=".account.UpdateInfoFragment">
+    tools:context=".account.UserInfoFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_gradient_black"
-        android:paddingTop="@dimen/statusBarSize"
-        android:paddingBottom="@dimen/len_32">
+        android:paddingBottom="@dimen/len_32"
+        android:paddingTop="@dimen/statusBarSize">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="0dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="User Information"
+            app:title="@string/label_update_info_tips"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
-            tools:ignore="MissingConstraints"></androidx.appcompat.widget.Toolbar>
+            tools:ignore="MissingConstraints">
+        </androidx.appcompat.widget.Toolbar>
 
         <com.jiuwfung.comp6239.widget.PortraitView
             android:id="@+id/im_account_portrait"
@@ -40,7 +39,8 @@
             android:src="@drawable/default_holder_add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar2"></com.jiuwfung.comp6239.widget.PortraitView>
+            app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        </com.jiuwfung.comp6239.widget.PortraitView>
 
         <TextView
             android:id="@+id/text_port"
@@ -49,10 +49,11 @@
             android:layout_marginTop="8dp"
             android:text="@string/label_portrait_tips"
             android:textAlignment="center"
-            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/im_account_portrait"></TextView>
+            app:layout_constraintTop_toBottomOf="@+id/im_account_portrait"
+            android:textColor="@color/white">
+        </TextView>
 
         <ImageView
             android:id="@+id/im_account_sex"
@@ -62,7 +63,8 @@
             android:padding="5dp"
             android:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@+id/text_port"
-            app:layout_constraintEnd_toEndOf="@+id/im_account_portrait"></ImageView>
+            app:layout_constraintEnd_toEndOf="@+id/im_account_portrait">
+        </ImageView>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -71,13 +73,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_account_input"
             android:orientation="vertical"
             android:paddingTop="@dimen/len_8"
             android:paddingBottom="@dimen/len_8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_port">
+            app:layout_constraintTop_toBottomOf="@+id/text_port"
+            android:background="@drawable/bg_account_input">
 
 
             <LinearLayout
@@ -97,8 +99,8 @@
                     android:src="@drawable/ic_email"
                     android:tint="@color/white" />
 
-                <TextView
-                    android:id="@+id/email"
+                <EditText
+                    android:id="@+id/edit_email"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/len_4"
@@ -111,7 +113,8 @@
                     android:paddingBottom="@dimen/len_8"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/white"
-
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
                     android:textSize="@dimen/font_14" />
 
             </LinearLayout>
@@ -125,65 +128,13 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_account_input"
             android:orientation="vertical"
             android:paddingTop="@dimen/len_4"
             android:paddingBottom="@dimen/len_4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="@dimen/len_4">
-
-
-                <ImageView
-                    android:layout_width="@dimen/len_20"
-                    android:layout_height="@dimen/len_20"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/len_8"
-                    android:layout_marginRight="@dimen/len_8"
-                    android:contentDescription="@string/app_name"
-                    android:src="@drawable/ic_person"
-                    android:tint="@color/white" />
-
-                <TextView
-                    android:id="@+id/first_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/len_4"
-                    android:layout_marginEnd="@dimen/len_2"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/label_first_name"
-                    android:inputType="text"
-                    android:paddingTop="@dimen/len_8"
-                    android:paddingBottom="@dimen/len_8"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/font_14" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/len_56"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:background="@drawable/bg_account_input"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/len_4"
-            android:paddingBottom="@dimen/len_4"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:background="@drawable/bg_account_input">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -203,7 +154,60 @@
                     android:tint="@color/white" />
 
                 <EditText
-                    android:id="@+id/ast_name"
+                    android:id="@+id/edit_first_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/len_4"
+                    android:layout_marginEnd="@dimen/len_2"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/label_first_name"
+                    android:inputType="text"
+                    android:paddingTop="@dimen/len_8"
+                    android:paddingBottom="@dimen/len_8"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
+                    android:textSize="@dimen/font_14" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/len_56"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/len_4"
+            android:paddingBottom="@dimen/len_4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            android:background="@drawable/bg_account_input">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="@dimen/len_4">
+
+
+                <ImageView
+                    android:layout_width="@dimen/len_20"
+                    android:layout_height="@dimen/len_20"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="@dimen/len_8"
+                    android:layout_marginRight="@dimen/len_8"
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_person"
+                    android:tint="@color/white" />
+
+                <EditText
+                    android:id="@+id/edit_last_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/len_4"
@@ -216,38 +220,14 @@
                     android:paddingBottom="@dimen/len_8"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                     android:textColor="@color/white"
+                    android:textColorHint="@color/textSecond"
+                    android:textCursorDrawable="@drawable/ic_cursor"
                     android:textSize="@dimen/font_14" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Space
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_weight="2" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/len_28">
-
-        <net.qiujuer.genius.ui.widget.Button
-            android:id="@+id/btn_account_submit"
-            android:layout_width="@dimen/len_172"
-            android:layout_height="@dimen/len_44"
-            android:layout_gravity="center"
-            android:background="@drawable/sel_btn_bg_black_alpha_44"
-            android:text="Log Out"
-            android:textColor="@color/white"
-            app:gTouchColor="@color/colorAccentAlpha"
-            app:gTouchCornerRadius="22dp"
-            app:gTouchEffect="ripple" />
-    </FrameLayout>
-
-
-
-</LinearLayout>
+</FrameLayout>
