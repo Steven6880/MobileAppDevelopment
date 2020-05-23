@@ -24,6 +24,10 @@ LastUpdate:5.23
 
 LastUpdate:5.23
 
+> Firebase CloudMesage:   https://mubu.com/doc/1tQAM4m04qw
+
+LastUpdate:5.23
+
 ### Implements
 LastUpadate:5.23
 
@@ -31,6 +35,8 @@ LastUpadate:5.23
 
 # Login and Register
 ### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+
+LastUpdate:5.22
 
 > Code:
 
@@ -42,6 +48,8 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 ### RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
 
+LastUpdate:5.22
+
 > Code:
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/welcome/fragments/RegisterFragment.java
@@ -51,6 +59,8 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_register.xml
 
 ### LoginFragment:   https://mubu.com/doc/3cXHu_wNDyw
+
+LastUpdate:5.22
 
 > Code:
 
@@ -80,7 +90,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # EventActivity
 
-### EventActivity   doesn't have MUBU currently
+### EventActivity:   https://mubu.com/doc/g5h918oNWw
 
 > Code:
 
@@ -90,9 +100,30 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_creat_event.xml
 
+# EventChooseActivity:  dosen't have MUBU currentlu
+
+### EventChooseActivity
+
+> Code:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/EventChooseActivity.java
+
+> XML:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_event_choose.xml
+
 # Logic Test
 
 ### WelcomeActivity:    https://mubu.com/doc/4UnZW_ogSVw
+
+LastUpdate:5.23
+
+### MainActivity:   https://mubu.com/doc/6AfUQi_zAaw
+
+LastUpdate:5.23
+
+### EventActivity:  https://mubu.com/doc/1iiIQ_yDFaw
+
 LastUpdate:5.23
 
 # Evaluation
