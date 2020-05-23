@@ -8,12 +8,35 @@
 # Preparation
 
 ### Preparation:    https://mubu.com/doc/3YU_61B-iVw
-* LastUpdate:5.23
+LastUpdate:5.23
+
+### Firebase
+LastUpdate:5.23
+
+> Firebase Authentication:
+LastUpdat:5.23
+
+https://mubu.com/doc/4y2DAz-e7Vw
+
+> Firebase Realtime Database
+LastUpdate:5.23
+
+https://mubu.com/doc/61VdFVSt6Vw
+
+> Firebase CloudStorage
+LastUpdate:5.23
+
+https://mubu.com/doc/aaFlZDMq9w
+
+### Implements
+LastUpadate:5.23
+
+> GO down of this page.
 
 # Login and Register
 ### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
 
->Code:
+> Code:
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/WelcomeActivity.java
 
@@ -71,6 +94,15 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_creat_event.xml
 
+# Logic Test
+
+### WelcomeActivity:    https://mubu.com/doc/4UnZW_ogSVw
+LastUpdate:5.23
+
+# Evaluation
+
+### Evaluation:   https://mubu.com/doc/41RLLPyueFw
+LastUpdate:5.23
 
 # Implements 
 > appcompat:1.1.0
