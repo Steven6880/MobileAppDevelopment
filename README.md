@@ -150,3 +150,5 @@ LastUpdate:5.23
 > easypermissions:3.0.0
 
 > ucrop:2.2.5-native
+
+> firebase-messaging:17.0.0
