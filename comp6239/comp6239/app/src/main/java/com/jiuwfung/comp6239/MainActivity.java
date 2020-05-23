@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -26,8 +29,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomViewTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,6 +42,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -77,7 +85,7 @@ public class MainActivity extends AppCompatActivity
     public DatabaseReference mDataaccounts;
 
     public static int INT_IDENTITY = 0;
-    public static String STRING_IDENTITY = "Student";
+    public static String STRING_IDENTITY = "Manager";
     public static String STRING_UID;
     public static File fileDownloadportrait;
     public static int MaxPicSize = 1024 * 1024 * 20;
@@ -120,6 +128,29 @@ public class MainActivity extends AppCompatActivity
         sharedParent = getSharedPreferences("Parent" , Context.MODE_PRIVATE);
         editorParent = sharedParent.edit();
 
+        initChannel();
+
+        if (getIntent().getExtras() != null) {
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.e("MainActivity", "Key: " + key + " Value: " + value);
+            }
+        }
+
+        FirebaseInstanceId.getInstance()
+                .getInstanceId()
+                .addOnCompleteListener(task -> {
+                    if (!task.isSuccessful()) {
+                        Log.e("FCMDemo", "getInstanceId failed", task.getException());
+                        return;
+                    }
+                    // Get new Instance ID token
+                    String token = task.getResult().getToken();
+                    Log.e("FCMDemo", "token: " + token);
+                });
+        if(INT_IDENTITY == 1){
+            subscribestudent();
+        }
 
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
@@ -127,7 +158,7 @@ public class MainActivity extends AppCompatActivity
         //checkpoint
         //STRING_UID = mUser.getUid();
         //checkpoint
-        mStoragepicture = mStorage.child("Accounts/LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
+//        mStoragepicture = mStorage.child("Accounts/LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
         mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
         mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
         mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
@@ -141,33 +172,33 @@ public class MainActivity extends AppCompatActivity
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         //Load Portrait
-        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , "LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
+//        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , "LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
 
-        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-                mPortraitView.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
-            }
-        });
+//        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+//                mPortraitView.setImageBitmap(bitmap);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
+//            }
+//        });
 
-        mStoragepicture.getFile(fileDownloadportrait)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("download sucess" , taskSnapshot.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Failure" , e.getLocalizedMessage());
-            }
-        });
+//        mStoragepicture.getFile(fileDownloadportrait)
+//                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                        Log.d("download sucess" , taskSnapshot.toString());
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d("Failure" , e.getLocalizedMessage());
+//            }
+//        });
     }
 
     @Override
@@ -204,6 +235,51 @@ public class MainActivity extends AppCompatActivity
                     protected void onResourceCleared(@Nullable Drawable placeholder) {
                     }
                 });
+    }
+
+    private void subscribestudent(){
+        FirebaseMessaging.getInstance().subscribeToTopic(sharedStudent.getString("Group" , ""))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    String TAG = "subscribe group";
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Subscribed to group";
+                        if (!task.isSuccessful()) {
+                            msg = "Failed to subscribe to group topic";
+                        }
+                        Log.d(TAG, msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        FirebaseMessaging.getInstance().subscribeToTopic(sharedStudent.getString("Year" , ""))
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    String TAG = "subscribe year";
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "Subscribed to year";
+                        if (!task.isSuccessful()) {
+                            msg = "Failed to subscribe to year topic";
+                        }
+                        Log.d(TAG, msg);
+                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void initChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel mChannel = new NotificationChannel("ChannelId",
+                    "ChannelName",
+                    NotificationManager.IMPORTANCE_HIGH);
+
+            //渠道描述
+            mChannel.setDescription("Channel desc");
+            NotificationManager notificationManager = (NotificationManager) getSystemService(
+                    NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(mChannel);
+            notificationManager.cancelAll();
+        }
     }
 
     @OnClick(R.id.btn_floataction)
@@ -281,6 +357,7 @@ public class MainActivity extends AppCompatActivity
                     INT_IDENTITY=0;
                     editorIdentity.putString("Identity" , "Manager");
                     Toast.makeText(MainActivity.this , STRING_IDENTITY , Toast.LENGTH_LONG).show();
+                    editorIdentity.commit();
                 }
                 if(STRING_IDENTITY.equals("Student")){
                     INT_IDENTITY=1;
@@ -316,6 +393,9 @@ public class MainActivity extends AppCompatActivity
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
                                 }
                             });
+                    editorIdentity.commit();
+                    editorStudent.commit();
+                    editorParent.commit();
 
                 }
                 if(STRING_IDENTITY.equals("Parent")){
@@ -334,6 +414,9 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     editorParent.putStringSet("Children" , SetChildren);
+
+                    editorIdentity.commit();
+                    editorParent.commit();
                 }
             }
             @Override

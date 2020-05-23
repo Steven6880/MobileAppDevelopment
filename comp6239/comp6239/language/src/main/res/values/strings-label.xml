@@ -11,6 +11,10 @@
     <string name="label_permission_submit">授权</string>
     <string name="label_permission_ok">授权成功！</string>
 
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">COMP6239</string>
+    <string name="fcm_message">FCM Message</string>
+
     <string name="label_update_info_tips">Update Information</string>
     <string name="label_login_welcome">Login</string>
     <string name="label_submit">Submit</string>
@@ -29,6 +33,7 @@
     <string name="label_edit_contact_number">Contact Number</string>
     <string name="Label_edit_relation">Relation</string>
     <string name="label_register_welcome">Welcome!</string>
+    <string name="Label_create_enent">Create Events</string>
     <string name="label_create_event">Create Event</string>
     <string name="label_register">Sign Up</string>
     <string name="label_password">Password</string>

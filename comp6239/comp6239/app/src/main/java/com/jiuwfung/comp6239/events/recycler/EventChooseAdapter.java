@@ -49,7 +49,7 @@ public class EventChooseAdapter extends RecyclerView.Adapter<EventChooseAdapter.
 
         public EventChooseViewHolder(@NonNull View itemView) {
             super(itemView);
-            mGroup = itemView.findViewById(R.id.card_student_group);
+            mGroup = itemView.findViewById(R.id.card_student_id);
             mName = itemView.findViewById(R.id.card_student_name);
             mCheckBox = itemView.findViewById(R.id.card_student_checkbox);
         }

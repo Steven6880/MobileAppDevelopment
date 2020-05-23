@@ -83,7 +83,7 @@ public class LoginFragment extends Fragment {
         FirebaseUser user = mAuth.getCurrentUser();
 
         if(user!=null){
-            if(user.isEmailVerified()) {
+            if(!(user.isEmailVerified())) {
                 MainActivity.show(getActivity());
                 getActivity().finish();
             }

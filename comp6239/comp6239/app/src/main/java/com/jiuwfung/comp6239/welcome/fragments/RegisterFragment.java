@@ -8,8 +8,6 @@ import androidx.fragment.app.Fragment;
 import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +19,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -40,7 +37,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,7 +45,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.jiuwfung.comp6239.Application;
+import com.jiuwfung.comp6239.helper.Application;
 import com.jiuwfung.comp6239.R;
 import com.jiuwfung.comp6239.helper.MyGlideEngine;
 import com.jiuwfung.comp6239.helper.WelcomeStorage;
@@ -58,7 +54,6 @@ import com.jiuwfung.comp6239.widget.PortraitView;
 import com.yalantis.ucrop.UCrop;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
 
 import net.qiujuer.genius.ui.widget.Button;
 import net.qiujuer.genius.ui.widget.Loading;
@@ -706,7 +701,6 @@ public class RegisterFragment extends Fragment {
                                                                     if (dataSnapshot.child(childID).child("Mother").child("Number").getValue().toString()!=null){
                                                                         tem_mother_number = dataSnapshot.child(childID).child("Mother").child("Number").getValue().toString();
                                                                     }
-                                                                    //checkpoint
 
                                                                     if(dataSnapshot.child(childID).child("Mother").child("FirstName").getValue().toString()!=null){
                                                                         tem_mother_name = dataSnapshot.child(childID).child("Mother").child("FirstName").getValue().toString();
@@ -879,13 +873,11 @@ public class RegisterFragment extends Fragment {
                                                                             mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                                                                                 @Override
                                                                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                                                                    //checkpoint
                                                                                     Toast.makeText(getActivity() , "upload portriat sucess!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                                 @Override
                                                                                 public void onFailure(@NonNull Exception e) {
-                                                                                    //checkpoint
                                                                                     Toast.makeText(getActivity() , "upload portriat failure!" , Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });

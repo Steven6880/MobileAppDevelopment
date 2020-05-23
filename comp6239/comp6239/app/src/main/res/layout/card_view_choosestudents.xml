@@ -6,21 +6,24 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/len_4"
+    android:background="@drawable/bg_account_input"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
         <TextView
-            android:id="@+id/card_student_group"
+            android:id="@+id/card_student_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:text="StudentGroup"
+            android:text="StudentID"
             android:textSize="@dimen/font_14"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,9 +39,10 @@
             android:layout_marginBottom="8dp"
             android:text="StudentName"
             android:textSize="@dimen/font_14"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/card_student_checkbox"
-            app:layout_constraintStart_toEndOf="@+id/card_student_group"
+            app:layout_constraintStart_toEndOf="@+id/card_student_id"
             app:layout_constraintTop_toTopOf="parent">
         </TextView>
 
@@ -49,10 +53,10 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:buttonTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
         </CheckBox>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
