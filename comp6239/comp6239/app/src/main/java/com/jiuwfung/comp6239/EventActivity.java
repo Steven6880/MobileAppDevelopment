@@ -14,6 +14,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,6 +43,8 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
     @BindView(R.id.im_event_picture)
     ImageView mEventPicture;
+    @BindView(R.id.choose_event_picture)
+    TextView mEventTextView;
     @BindView(R.id.edit_event_title)
     EditText mEventTitle;
     @BindView(R.id.edit_event_description)
@@ -64,9 +67,11 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
     private static final int REQUEST_CODE_STORAGE = 1;
     private static final int REQUEST_CODE_PICTURE = 23;
     private static Uri resultUri;
+    private static String STRING_IDENTITY;
 
     SharedPreferences sharedEventCreate;
     SharedPreferences.Editor editoreventcreate;
+    public SharedPreferences sharedIdentity;
 
 
     public static void show(Context context){
@@ -83,11 +88,38 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
         sharedEventCreate= getSharedPreferences("EventCreate",Context.MODE_PRIVATE);
         editoreventcreate = sharedEventCreate.edit();
 
+//        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
+//        STRING_IDENTITY = sharedIdentity.getString("Identity" , "");
+
+        STRING_IDENTITY = "Manager";
+
+        if(!(STRING_IDENTITY.equals("Manager"))){
+            mEventButton.setVisibility(View.GONE);
+            mEventTextView.setText("");
+            mEventTitle.setFocusable(false);
+            mEventTitle.setFocusableInTouchMode(false);
+            mEventDescription.setFocusable(false);
+            mEventDescription.setFocusableInTouchMode(false);
+            mEventDetail.setFocusable(false);
+            mEventDetail.setFocusableInTouchMode(false);
+            mEventLocation.setFocusable(false);
+            mEventLocation.setFocusableInTouchMode(false);
+            mEventTime.setFocusable(false);
+            mEventTime.setFocusableInTouchMode(false);
+            mEventDate.setFocusable(false);
+            mEventDate.setFocusableInTouchMode(false);
+        }
+
+
     }
 
     @OnClick(R.id.im_event_picture)
     public void onSelectEventPicture(){
-        onRequestStorge();
+        if(STRING_IDENTITY.equals("Manager")) {
+            onRequestStorge();
+        }else {
+            return;
+        }
     }
 
     @OnClick(R.id.event_button)
@@ -134,9 +166,15 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+
                 Intent intent=new Intent();
                 intent.setClass(EventActivity.this, EventChooseActivity.class);
                 startActivity(intent);
+                editoreventcreate.putString("Title" , eventtitle);
+                editoreventcreate.commit();
+
+                onFinish();
+
             }
         }).setNegativeButton("Rewrite it", new DialogInterface.OnClickListener() {
             @Override
@@ -231,5 +269,9 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
                 .into(mEventPicture);
 
         INT_PICTURE = 1;
+    }
+
+    private void onFinish(){
+        this.finish();
     }
 }

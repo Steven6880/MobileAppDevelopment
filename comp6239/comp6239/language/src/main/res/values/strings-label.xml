@@ -33,8 +33,7 @@
     <string name="label_edit_contact_number">Contact Number</string>
     <string name="Label_edit_relation">Relation</string>
     <string name="label_register_welcome">Welcome!</string>
-    <string name="Label_create_enent">Create Events</string>
-    <string name="label_create_event">Create Event</string>
+    <string name="label_create_event">Event</string>
     <string name="label_register">Sign Up</string>
     <string name="label_password">Password</string>
     <string name="label_confirm_password">Confirm Password</string>
