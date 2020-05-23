@@ -7,10 +7,10 @@
 
 # Preparation
 
-### Preparation:    https://mubu.com/doc/3YU_61B-iVw
+## Preparation:    https://mubu.com/doc/3YU_61B-iVw
 LastUpdate:5.23
 
-### Firebase
+## Firebase
 
 > Firebase Authentication:    https://mubu.com/doc/4y2DAz-e7Vw
 
@@ -24,13 +24,13 @@ LastUpdate:5.23
 
 LastUpdate:5.23
 
-### Implements
+## Implements
 LastUpadate:5.23
 
 > GO down of this page.
 
 # Login and Register
-### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
+## WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
 
 > Code:
 
@@ -40,7 +40,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_welcome.xml
 
-### RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
+## RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
 
 > Code:
 
@@ -50,7 +50,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_register.xml
 
-### LoginFragment:   https://mubu.com/doc/3cXHu_wNDyw
+## LoginFragment:   https://mubu.com/doc/3cXHu_wNDyw
 
 > Code:
 
@@ -62,7 +62,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # MainActivity
 
-### MainActivity:  https://mubu.com/doc/gXBMvhuKPw
+## MainActivity:  https://mubu.com/doc/gXBMvhuKPw
 
 > Code:
 
@@ -72,7 +72,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_main.xml
 
-### NavHelpet
+## NavHelpet
 
 > Code:
 
@@ -80,7 +80,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # EventActivity
 
-### EventActivity   doesn't have MUBU currently
+## EventActivity   doesn't have MUBU currently
 
 > Code:
 
@@ -92,12 +92,12 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # Logic Test
 
-### WelcomeActivity:    https://mubu.com/doc/4UnZW_ogSVw
+## WelcomeActivity:    https://mubu.com/doc/4UnZW_ogSVw
 LastUpdate:5.23
 
 # Evaluation
 
-### Evaluation:   https://mubu.com/doc/41RLLPyueFw
+## Evaluation:   https://mubu.com/doc/41RLLPyueFw
 LastUpdate:5.23
 
 # Implements 
