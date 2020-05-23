@@ -5,6 +5,11 @@
 
 - All password for MUBU is comp6239
 
+# Preparation
+
+### Preparation:    https://mubu.com/doc/3YU_61B-iVw
+* LastUpdate:5.23
+
 # Login and Register
 ### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
 
