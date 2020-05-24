@@ -6,9 +6,11 @@
     tools:context=".main.fragments.EventsFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ListView
+        android:id="@+id/event_list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="@dimen/len_4">
+    </ListView>
 
 </FrameLayout>

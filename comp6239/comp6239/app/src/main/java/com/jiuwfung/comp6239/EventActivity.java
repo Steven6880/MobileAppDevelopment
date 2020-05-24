@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,9 +56,9 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
     StorageReference mStorage ;
     StorageReference mStoragepicture;
     DatabaseReference mDataevents;
-//    DatabaseReference mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
-//    DatabaseReference mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
-//    DatabaseReference mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
+
+    public SharedPreferences sharedEvents;
+    public SharedPreferences.Editor editorEvents;
 
     @BindView(R.id.im_event_picture)
     ImageView mEventPicture;
@@ -87,6 +88,8 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
     private static final int REQUEST_CODE_PICTURE = 23;
     private static Uri resultUri;
     private static String STRING_IDENTITY;
+    private boolean Editible;
+    public static int MaxPicSize = 1024 * 1024 * 20;
 
     SharedPreferences sharedEventCreate;
     SharedPreferences.Editor editoreventcreate;
@@ -103,14 +106,18 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
         setContentView(R.layout.activity_event);
 
         mAuth = FirebaseAuth.getInstance();
-        mStorage = FirebaseStorage.getInstance().getReference().child("Events");
+        mStorage = FirebaseStorage.getInstance().getReference();
         mDataevents = FirebaseDatabase.getInstance().getReference().child("Events");
-        StorageReference mStoragepicture;
 
         ButterKnife.bind(this);
 
         sharedEventCreate= getSharedPreferences("EventCreate",Context.MODE_PRIVATE);
         editoreventcreate = sharedEventCreate.edit();
+
+        sharedEvents = getSharedPreferences("EventAccess" , Context.MODE_PRIVATE);
+        editorEvents = sharedEvents.edit();
+        Editible = sharedEvents.getBoolean("Editable" , false);
+        Log.e("Editable" , Boolean.toString(Editible));
 
         hashEvent = new HashMap();
 
@@ -120,7 +127,7 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
         STRING_IDENTITY = "Manager";
 
-        if(!(STRING_IDENTITY.equals("Manager"))){
+        if(!Editible){
             mEventButton.setVisibility(View.GONE);
             mEventTextView.setText("");
             mEventTitle.setFocusable(false);
@@ -135,6 +142,43 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
             mEventTime.setFocusableInTouchMode(false);
             mEventDate.setFocusable(false);
             mEventDate.setFocusableInTouchMode(false);
+
+            mEventTitle.setText(sharedEvents.getString("Title" , "Title"));
+            mEventDescription.setText(sharedEvents.getString("ShortDescription" , "ShortDescription"));
+            mEventDetail.setText(sharedEvents.getString("Detail" , "Detail"));
+            mEventDate.setText(sharedEvents.getString("Date" , "Date"));
+            mEventLocation.setText(sharedEvents.getString("Location" , "Location"));
+            mEventTime.setText(sharedEvents.getString("Time" , "Time"));
+
+            Glide.with(this)
+                    .asBitmap()
+                    .load(R.drawable.bg_src_tianjin)
+                    .into(mEventPicture);
+
+//            mStorage.child("Event/"+sharedEvents.getString("Title" , "Title")+".jpg").getBytes(MaxPicSize)
+//                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//                        @Override
+//                        public void onSuccess(byte[] bytes) {
+//                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+//                            mEventPicture.setImageBitmap(bitmap);
+//                            Log.d("Load Event Picture.","Success!");
+//                        }
+//                    }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(EventActivity.this , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
+//                    Log.e("Load Event Picture." , "Failure!");
+//                }
+//            });
+
+            editorEvents.remove("Title");
+            editorEvents.remove("ShortDescription");
+            editorEvents.remove("detail");
+            editorEvents.remove("Date");
+            editorEvents.remove("Location");
+            editorEvents.remove("Time");
+            editorEvents.commit();
+
         }
 
 

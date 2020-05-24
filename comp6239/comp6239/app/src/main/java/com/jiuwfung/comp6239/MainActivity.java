@@ -75,6 +75,9 @@ public class MainActivity extends AppCompatActivity
     public SharedPreferences.Editor editorStudent;
     public SharedPreferences sharedParent;
     public SharedPreferences.Editor editorParent;
+    public SharedPreferences sharedEvents;
+    public SharedPreferences.Editor editorEvents;
+
 
     public FirebaseAuth mAuth ;
     public FirebaseUser mUser;
@@ -127,6 +130,9 @@ public class MainActivity extends AppCompatActivity
 
         sharedParent = getSharedPreferences("Parent" , Context.MODE_PRIVATE);
         editorParent = sharedParent.edit();
+
+        sharedEvents = getSharedPreferences("EventAccess" , Context.MODE_PRIVATE);
+        editorEvents = sharedEvents.edit();
 
         initChannel();
 
@@ -285,6 +291,8 @@ public class MainActivity extends AppCompatActivity
     @OnClick(R.id.btn_floataction)
     public void onCreateEvent(){
         EventActivity.show(this);
+        editorEvents.putBoolean("Editable" , true);
+        editorEvents.commit();
     }
 
 

@@ -1,5 +1,6 @@
 package com.jiuwfung.comp6239.helper;
 
+import java.io.File;
 import java.util.List;
 
 public class EventAdapterItem {
