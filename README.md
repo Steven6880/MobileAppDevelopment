@@ -82,6 +82,24 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_main.xml
 
+### EventsFragment:   https://mubu.com/doc/ch_DthMH-w
+
+> XML:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_events.xml
+
+> CODE:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/main/fragments/EventsFragment.java
+
+> AdpterItem:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/helper/EventAdapterItem.java
+
+> CardView:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/view_card_event.xml
+
 ### NavHelpet
 
 > Code:
@@ -111,6 +129,14 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 > XML:
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_event_choose.xml
+
+> AdapterItem:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/events/recycler/EventChooseAdapterItem.java
+
+> CardView
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/card_view_choosestudents.xml
 
 # Logic Test
 
