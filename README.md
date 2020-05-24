@@ -100,9 +100,9 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_creat_event.xml
 
-# EventChooseActivity:  dosen't have MUBU currentlu
+# EventChooseActivity
 
-### EventChooseActivity
+### EventChooseActivity:     https://mubu.com/doc/5xav01iL0yw
 
 > Code:
 
