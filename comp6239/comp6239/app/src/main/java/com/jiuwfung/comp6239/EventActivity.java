@@ -14,6 +14,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.jiuwfung.comp6239.helper.Application;
 import com.jiuwfung.comp6239.helper.MyGlideEngine;
 import com.yalantis.ucrop.UCrop;
@@ -30,6 +39,7 @@ import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -40,6 +50,14 @@ import pub.devrel.easypermissions.AppSettingsDialog;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class EventActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
+
+    FirebaseAuth mAuth;
+    StorageReference mStorage ;
+    StorageReference mStoragepicture;
+    DatabaseReference mDataevents;
+//    DatabaseReference mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
+//    DatabaseReference mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
+//    DatabaseReference mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
 
     @BindView(R.id.im_event_picture)
     ImageView mEventPicture;
@@ -62,6 +80,7 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
     List<Uri> mSelected;
     String mPicture;
+    HashMap hashEvent;
 
     private static int INT_PICTURE=0;
     private static final int REQUEST_CODE_STORAGE = 1;
@@ -71,7 +90,7 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
     SharedPreferences sharedEventCreate;
     SharedPreferences.Editor editoreventcreate;
-    public SharedPreferences sharedIdentity;
+    SharedPreferences sharedIdentity;
 
 
     public static void show(Context context){
@@ -83,11 +102,19 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+        mAuth = FirebaseAuth.getInstance();
+        mStorage = FirebaseStorage.getInstance().getReference().child("Events");
+        mDataevents = FirebaseDatabase.getInstance().getReference().child("Events");
+        StorageReference mStoragepicture;
+
         ButterKnife.bind(this);
 
         sharedEventCreate= getSharedPreferences("EventCreate",Context.MODE_PRIVATE);
         editoreventcreate = sharedEventCreate.edit();
 
+        hashEvent = new HashMap();
+
+        //checkpoint
 //        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
 //        STRING_IDENTITY = sharedIdentity.getString("Identity" , "");
 
@@ -167,10 +194,44 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
+                hashEvent.put("ShortDescription" , eventdescription);
+                hashEvent.put("Detail", eventdetail);
+                hashEvent.put("Location" , eventlocation);
+                hashEvent.put("Time" , eventtime);
+                hashEvent.put("Date" , eventdate);
+
+                mDataevents.child(eventtitle).setValue(hashEvent).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(EventActivity.this, "upload event success!" , Toast.LENGTH_LONG).show();
+                        Log.d("Event Database" , "add event success!");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EventActivity.this, "upload event picture failure!" + e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
+                        Log.e("Event Picture" , "add event picture failure!"+e.getLocalizedMessage());
+                    }
+                });
+
+                mStoragepicture = mStorage.child(eventtitle+".jpg");
+                mStoragepicture.putFile(resultUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        Toast.makeText(EventActivity.this , "upload picture success!" , Toast.LENGTH_LONG).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(EventActivity.this , "upload picture failure!"+e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
+                    }
+                });
+
                 Intent intent=new Intent();
                 intent.setClass(EventActivity.this, EventChooseActivity.class);
                 startActivity(intent);
                 editoreventcreate.putString("Title" , eventtitle);
+                editoreventcreate.putString("Description" , eventdescription);
                 editoreventcreate.commit();
 
                 onFinish();
