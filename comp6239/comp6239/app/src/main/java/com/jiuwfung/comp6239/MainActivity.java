@@ -162,9 +162,9 @@ public class MainActivity extends AppCompatActivity
         mUser = mAuth.getCurrentUser();
         mStorage = FirebaseStorage.getInstance().getReference();
         //checkpoint
-        //STRING_UID = mUser.getUid();
+        STRING_UID = mUser.getUid();
         //checkpoint
-//        mStoragepicture = mStorage.child("Accounts/LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
+        mStoragepicture = mStorage.child("Accounts/"+STRING_UID+".jpg");
         mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
         mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
         mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
@@ -178,33 +178,33 @@ public class MainActivity extends AppCompatActivity
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         //Load Portrait
-//        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , "LwsnjgfubZeTf3a8ZXjBSCU7Jd72.jpg");
+        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , STRING_UID+".jpg");
 
-//        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-//                mPortraitView.setImageBitmap(bitmap);
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
-//            }
-//        });
+        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+                mPortraitView.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
+            }
+        });
 
-//        mStoragepicture.getFile(fileDownloadportrait)
-//                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-//                    @Override
-//                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                        Log.d("download sucess" , taskSnapshot.toString());
-//                    }
-//                }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Log.d("Failure" , e.getLocalizedMessage());
-//            }
-//        });
+        mStoragepicture.getFile(fileDownloadportrait)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        Log.d("download sucess" , taskSnapshot.toString());
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Failure" , e.getLocalizedMessage());
+            }
+        });
     }
 
     @Override

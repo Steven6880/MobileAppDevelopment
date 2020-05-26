@@ -74,9 +74,7 @@ public class HomeFragment extends Fragment {
         mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
         mDataStudents = FirebaseDatabase.getInstance().getReference().child("Students");
 
-//        USER_IDENTITY = sharedIdentity.getString("Identity" , "Manager");
-
-        USER_IDENTITY="Manager";
+        USER_IDENTITY=sharedIdentity.getString("Identity","Manager");
         return view;
     }
 

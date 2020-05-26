@@ -234,26 +234,22 @@ public class EventsFragment extends Fragment {
             TextView mEventLearnMore =(TextView)v.findViewById(R.id.card_learn_more);
 
 
-//            mStoragepicture.child("Event/"+item.Title+".jpg").getBytes(MaxPicSize)
-//                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//            @Override
-//            public void onSuccess(byte[] bytes) {
-//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-//                mEventPicture.setImageBitmap(bitmap);
-//                Log.d("Load Event Picture.","Success!");
-//                }
-//            }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(getActivity() , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
-//                    Log.e("Load Event Picture." , "Failure!");
-//                }
-//            });
+            mStoragepicture.child("Event/"+item.Title+".jpg").getBytes(MaxPicSize)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+                mEventPicture.setImageBitmap(bitmap);
+                Log.d("Load Event Picture.","Success!");
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(getActivity() , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
+                    Log.e("Load Event Picture." , "Failure!");
+                }
+            });
 
-            Glide.with(v)
-                    .asBitmap()
-                    .load(R.drawable.bg_src_tianjin)
-                    .into(mEventPicture);
 
             mEventTitle.setText(item.Title);
             mEventTime.setText(item.Time);

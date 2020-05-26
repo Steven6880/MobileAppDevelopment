@@ -121,11 +121,10 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
         hashEvent = new HashMap();
 
-        //checkpoint
-//        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
-//        STRING_IDENTITY = sharedIdentity.getString("Identity" , "");
 
-        STRING_IDENTITY = "Student";
+        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
+        STRING_IDENTITY = sharedIdentity.getString("Identity" , "");
+
 
         if(!Editible){
             mEventPicture.setFocusable(false);
@@ -152,26 +151,21 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
             mEventLocation.setText(sharedEvents.getString("Location" , "Location"));
             mEventTime.setText(sharedEvents.getString("Time" , "Time"));
 
-            Glide.with(this)
-                    .asBitmap()
-                    .load(R.drawable.bg_src_tianjin)
-                    .into(mEventPicture);
-
-//            mStorage.child("Event/"+sharedEvents.getString("Title" , "Title")+".jpg").getBytes(MaxPicSize)
-//                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-//                        @Override
-//                        public void onSuccess(byte[] bytes) {
-//                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-//                            mEventPicture.setImageBitmap(bitmap);
-//                            Log.d("Load Event Picture.","Success!");
-//                        }
-//                    }).addOnFailureListener(new OnFailureListener() {
-//                @Override
-//                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(EventActivity.this , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
-//                    Log.e("Load Event Picture." , "Failure!");
-//                }
-//            });
+            mStorage.child("Event/"+sharedEvents.getString("Title" , "Title")+".jpg").getBytes(MaxPicSize)
+                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                        @Override
+                        public void onSuccess(byte[] bytes) {
+                            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+                            mEventPicture.setImageBitmap(bitmap);
+                            Log.d("Load Event Picture.","Success!");
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(EventActivity.this , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
+                    Log.e("Load Event Picture." , "Failure!");
+                }
+            });
 
             editorEvents.remove("Title");
             editorEvents.remove("ShortDescription");
