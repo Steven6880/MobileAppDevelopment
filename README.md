@@ -83,6 +83,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_main.xml
 
 ### EventsFragment:   https://mubu.com/doc/ch_DthMH-w
+Updated!
 
 > XML:
 
@@ -99,6 +100,13 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 > CardView:
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/view_card_event.xml
+
+### HomeFragment:   https://mubu.com/doc/6lYwX78WO8w
+Updated!
+
+> CODE:
+
+https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/main/fragments/HomeFragment.java
 
 ### NavHelpet
 
