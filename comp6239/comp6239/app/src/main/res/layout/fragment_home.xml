@@ -5,4 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".main.fragments.HomeFragment">
 
+    <ListView
+        android:id="@+id/home_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

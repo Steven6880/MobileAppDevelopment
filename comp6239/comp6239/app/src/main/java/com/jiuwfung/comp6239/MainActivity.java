@@ -356,6 +356,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         builder.create().show();
+
         mDataaccounts.child(STRING_UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -376,22 +377,16 @@ public class MainActivity extends AppCompatActivity
                     editorStudent.putString("Year" , dataSnapshot.child("Year").getValue().toString());
                     editorStudent.putString("Email" , dataSnapshot.child("Email").getValue().toString());
                     editorStudent.putString("Group" , dataSnapshot.child("Group").getValue().toString());
-                    editorStudent.putString("Identity" , dataSnapshot.child("Identity").getValue().toString());
                     editorStudent.putString("StudentID" , dataSnapshot.child("StudentID").getValue().toString());
 
-                    if(dataSnapshot.child("Events")!=null){
-                        for(DataSnapshot tem_datasnapshot : dataSnapshot.child("Events").getChildren()){
-                            SetEvents.add(tem_datasnapshot.getKey().toString());
-                        }
-                    }
-                    editorStudent.putStringSet("Events" , SetEvents);
-
-                    mDatayears.child(dataSnapshot.child("Year").getValue().toString())
-                            .child(dataSnapshot.child("Group").getValue().toString())
-                            .child(dataSnapshot.child("StudentID").getValue().toString())
+                    mDatayears.child(dataSnapshot.child(dataSnapshot.child("Year").getValue().toString()).getValue().toString())
+                            .child(dataSnapshot.child(dataSnapshot.child("Group").getValue().toString()).getValue().toString())
+                            .child(dataSnapshot.child(dataSnapshot.child("StudentID").getValue().toString()).getValue().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    editorStudent.putString("FirstName" , dataSnapshot.child("FirstName").getValue().toString());
+                                    editorStudent.putString("LastName" , dataSnapshot.child("LastName").getValue().toString());
                                     editorParent.putString("FatherName" , dataSnapshot.child("Father").child("FirstName").getValue().toString());
                                     editorParent.putString("FatherNumber" , dataSnapshot.child("Father").child("Number").getValue().toString());
                                     editorParent.putString("MotherName" , dataSnapshot.child("Mother").child("FirstName").getValue().toString());

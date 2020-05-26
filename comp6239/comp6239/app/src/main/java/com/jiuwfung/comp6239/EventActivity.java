@@ -125,9 +125,11 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 //        sharedIdentity = getSharedPreferences("Identity" , Context.MODE_PRIVATE);
 //        STRING_IDENTITY = sharedIdentity.getString("Identity" , "");
 
-        STRING_IDENTITY = "Manager";
+        STRING_IDENTITY = "Student";
 
         if(!Editible){
+            mEventPicture.setFocusable(false);
+            mEventPicture.setFocusableInTouchMode(false);
             mEventButton.setVisibility(View.GONE);
             mEventTextView.setText("");
             mEventTitle.setFocusable(false);

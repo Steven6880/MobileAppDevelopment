@@ -41,6 +41,8 @@ import com.jiuwfung.comp6239.helper.EventAdapterItem;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -55,9 +57,15 @@ public class EventsFragment extends Fragment {
     public SharedPreferences sharedEvents ;
     public SharedPreferences.Editor editorEvents ;
 
+    public SharedPreferences sharedEventList;
+    public SharedPreferences.Editor editorEventList;
+
     public StorageReference mStoragepicture = FirebaseStorage.getInstance().getReference();
 
     public static int MaxPicSize = 1024 * 1024 * 20;
+    public static Boolean EVENT_CHECK;
+    public Set<String> Event_List = new HashSet<String>();
+    public Iterator<String> iterator = Event_List.iterator();
 
     @BindView(R.id.event_list_view)
     ListView mEventListView;
@@ -74,6 +82,17 @@ public class EventsFragment extends Fragment {
         View view =  inflater.inflate(R.layout.fragment_events, container, false);
         ButterKnife.bind(this , view);
 
+        EVENT_CHECK = sharedEventList.getBoolean("EventCheck" , false);
+        Log.e("Get Student Event List" , Boolean.toString(EVENT_CHECK));
+        Event_List = sharedEventList.getStringSet("EventList" , null);
+
+        if(Event_List!=null){
+            Log.e("Event List Not Null!" , String.valueOf(Event_List.size()));
+            while (iterator.hasNext()){
+                Log.e("Event List!" , iterator.next());
+            }
+        }
+
         return view;
     }
 
@@ -82,6 +101,9 @@ public class EventsFragment extends Fragment {
         super.onAttach(context);
         sharedEvents = this.getActivity().getSharedPreferences("EventAccess" , Context.MODE_PRIVATE);
         editorEvents = sharedEvents.edit();
+
+        sharedEventList =this.getActivity().getSharedPreferences("EventList" , Context.MODE_PRIVATE);
+        editorEventList = sharedEventList.edit();
     }
 
     @Override
@@ -94,66 +116,84 @@ public class EventsFragment extends Fragment {
     private void updateList(){
         ArrayList<EventAdapterItem> mEventAdapter = new ArrayList<EventAdapterItem>();
 
-        FirebaseDatabase.getInstance().getReference().child("Events")
-                .addChildEventListener(new ChildEventListener() {
-                    @Override
-                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-                    }
+        if(EVENT_CHECK){
+            Event_List = sharedEventList.getStringSet("EventList" , null);
+            editorEventList.remove("EventList");
+            editorEventList.putBoolean("EventCheck" , false);
+            editorEventList.commit();
 
-                    @Override
-                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-        FirebaseDatabase.getInstance().getReference().child("Events")
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            String tem_Title = dataSnapshot1.getKey();
-                            String tem_Date = dataSnapshot1.child("Date").getValue().toString();
-                            String tem_Detail = dataSnapshot1.child("Detail").getValue().toString();
-                            String tem_Location = dataSnapshot1.child("Location").getValue().toString();
-                            String tem_ShortDescription = dataSnapshot1.child("ShortDescription").getValue().toString();
-                            String tem_Time = dataSnapshot1.child("Time").getValue().toString();
-                            List<String> listStudents = new ArrayList<>();;
-                            if(dataSnapshot1.child("Parts")!=null){
-                                for(DataSnapshot dataSnapshot2:dataSnapshot1.child("Parts").getChildren()){
-                                    String tem_StudentID = dataSnapshot2.getKey();
-                                    if(!tem_StudentID.isEmpty()){
-                                        listStudents.add(tem_StudentID);
+            for(String string:Event_List){
+                FirebaseDatabase.getInstance().getReference().child("Events")
+                        .addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for(DataSnapshot dataSnapshot1:dataSnapshot.getChildren()){
+                                    if(string.equals(dataSnapshot1.getKey())){
+                                        String tem_Title = dataSnapshot1.getKey();
+                                        String tem_Date = dataSnapshot1.child("Date").getValue().toString();
+                                        String tem_Detail = dataSnapshot1.child("Detail").getValue().toString();
+                                        String tem_Location = dataSnapshot1.child("Location").getValue().toString();
+                                        String tem_ShortDescription = dataSnapshot1.child("ShortDescription").getValue().toString();
+                                        String tem_Time = dataSnapshot1.child("Time").getValue().toString();
+                                        List<String> listStudents = new ArrayList<>();;
+                                        if(dataSnapshot1.child("Parts")!=null){
+                                            for(DataSnapshot dataSnapshot2:dataSnapshot1.child("Parts").getChildren()){
+                                                String tem_StudentID = dataSnapshot2.getKey();
+                                                if(!tem_StudentID.isEmpty()){
+                                                    listStudents.add(tem_StudentID);
+                                                }
+                                            }
+                                        }
+                                        EventAdapterItem item = new EventAdapterItem(tem_Title , tem_Date , tem_Time , tem_Location , tem_ShortDescription,
+                                                tem_Detail , listStudents);
+                                        mEventAdapter.add(item);
                                     }
+                                    mEventListView.setAdapter(new mEventListAdapter(mEventAdapter));
                                 }
                             }
-                            EventAdapterItem item = new EventAdapterItem(tem_Title , tem_Date , tem_Time , tem_Location , tem_ShortDescription,
-                                    tem_Detail , listStudents);
-                            mEventAdapter.add(item);
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+            }
+        }else {
+            FirebaseDatabase.getInstance().getReference().child("Events")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                                Log.d("Getting Events!" , dataSnapshot.getKey());
+                                String tem_Title = dataSnapshot1.getKey();
+                                String tem_Date = dataSnapshot1.child("Date").getValue().toString();
+                                String tem_Detail = dataSnapshot1.child("Detail").getValue().toString();
+                                String tem_Location = dataSnapshot1.child("Location").getValue().toString();
+                                String tem_ShortDescription = dataSnapshot1.child("ShortDescription").getValue().toString();
+                                String tem_Time = dataSnapshot1.child("Time").getValue().toString();
+                                List<String> listStudents = new ArrayList<>();;
+                                if(dataSnapshot1.child("Parts")!=null){
+                                    for(DataSnapshot dataSnapshot2:dataSnapshot1.child("Parts").getChildren()){
+                                        String tem_StudentID = dataSnapshot2.getKey();
+                                        if(!tem_StudentID.isEmpty()){
+                                            listStudents.add(tem_StudentID);
+                                        }
+                                    }
+                                }
+                                EventAdapterItem item = new EventAdapterItem(tem_Title , tem_Date , tem_Time , tem_Location , tem_ShortDescription,
+                                        tem_Detail , listStudents);
+                                mEventAdapter.add(item);
+                            }
+                            mEventListView.setAdapter(new mEventListAdapter(mEventAdapter));
                         }
-                        mEventListView.setAdapter(new mEventListAdapter(mEventAdapter));
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.e("Getting Events!" , databaseError.getDetails());
+                        }
+                    });
+        }
     }
 
     private class mEventListAdapter extends BaseAdapter{
@@ -194,21 +234,21 @@ public class EventsFragment extends Fragment {
             TextView mEventLearnMore =(TextView)v.findViewById(R.id.card_learn_more);
 
 
-            mStoragepicture.child("Event/"+item.Title+".jpg").getBytes(MaxPicSize)
-                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-                mEventPicture.setImageBitmap(bitmap);
-                Log.d("Load Event Picture.","Success!");
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(getActivity() , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
-                    Log.e("Load Event Picture." , "Failure!");
-                }
-            });
+//            mStoragepicture.child("Event/"+item.Title+".jpg").getBytes(MaxPicSize)
+//                    .addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+//                mEventPicture.setImageBitmap(bitmap);
+//                Log.d("Load Event Picture.","Success!");
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(getActivity() , "LoadView Event Picture!" , Toast.LENGTH_LONG).show();
+//                    Log.e("Load Event Picture." , "Failure!");
+//                }
+//            });
 
             Glide.with(v)
                     .asBitmap()
