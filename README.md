@@ -158,6 +158,8 @@ LastUpdate:5.23
 
 ### EventActivity:  https://mubu.com/doc/1iiIQ_yDFaw
 
+### SharedPreferences:    https://mubu.com/doc/7cqpC7VTAMw
+
 LastUpdate:5.23
 
 # Evaluation
