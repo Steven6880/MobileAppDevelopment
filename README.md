@@ -3,40 +3,24 @@
 
 - ApplicationID:com.example.comp6239
 
-- All password for MUBU is comp6239
-
-# Preparation
-
-### Preparation:    https://mubu.com/doc/3YU_61B-iVw
-LastUpdate:5.23
+# Preparation 
 
 ### Firebase
 
-> Firebase Authentication:    https://mubu.com/doc/4y2DAz-e7Vw
+> Firebase Authentication
 
-LastUpdat:5.23
+> Firebase Realtime Database
 
-> Firebase Realtime Database:    https://mubu.com/doc/61VdFVSt6Vw
+> Firebase CloudStorage
 
-LastUpdate:5.23
-
-> Firebase CloudStorage:    https://mubu.com/doc/aaFlZDMq9w
-
-LastUpdate:5.23
-
-> Firebase CloudMesage:   https://mubu.com/doc/1tQAM4m04qw
-
-LastUpdate:5.23
+> Firebase CloudMesage
 
 ### Implements
-LastUpadate:5.23
 
 > GO down of this page.
 
 # Login and Register
-### WelcomeActivity:   https://mubu.com/doc/7FQc31T5xSw
-
-LastUpdate:5.22
+### WelcomeActivity
 
 > Code:
 
@@ -46,9 +30,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_welcome.xml
 
-### RegisterFragment:   https://mubu.com/doc/3kG5D5YE2mw
-
-LastUpdate:5.22
+### RegisterFragment
 
 > Code:
 
@@ -58,9 +40,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/fragment_register.xml
 
-### LoginFragment:   https://mubu.com/doc/3cXHu_wNDyw
-
-LastUpdate:5.22
+### LoginFragment
 
 > Code:
 
@@ -72,9 +52,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # MainActivity
 
-### MainActivity:  https://mubu.com/doc/gXBMvhuKPw
-
-> Code:
+### MainActivity
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/java/com/jiuwfung/comp6239/MainActivity.java
 
@@ -82,8 +60,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/activity_main.xml
 
-### EventsFragment:   https://mubu.com/doc/ch_DthMH-w
-Updated!
+### EventsFragment
 
 > XML:
 
@@ -101,8 +78,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239/app/src/main/res/layout/view_card_event.xml
 
-### HomeFragment:   https://mubu.com/doc/6lYwX78WO8w
-Updated!
+### HomeFragment
 
 > CODE:
 
@@ -128,7 +104,7 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # EventChooseActivity
 
-### EventChooseActivity:     https://mubu.com/doc/5xav01iL0yw
+### EventChooseActivity
 
 > Code:
 
@@ -148,24 +124,15 @@ https://github.com/Steven6880/MobileAppDevelopment/blob/master/comp6239/comp6239
 
 # Logic Test
 
-### WelcomeActivity:    https://mubu.com/doc/4UnZW_ogSVw
+### WelcomeActivity
 
-LastUpdate:5.23
+### MainActivity
 
-### MainActivity:   https://mubu.com/doc/6AfUQi_zAaw
+### EventActivity
 
-LastUpdate:5.23
-
-### EventActivity:  https://mubu.com/doc/1iiIQ_yDFaw
-
-### SharedPreferences:    https://mubu.com/doc/7cqpC7VTAMw
-
-LastUpdate:5.23
+### SharedPreferences
 
 # Evaluation
-
-### Evaluation:   https://mubu.com/doc/41RLLPyueFw
-LastUpdate:5.23
 
 # Implements 
 > appcompat:1.1.0
