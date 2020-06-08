@@ -113,7 +113,9 @@ public class NavHelper<T> {
         if (newTab != null) {
             if (newTab.fragment == null) {
                 // create
-                Fragment fragment = fragmentManager.getFragmentFactory().instantiate(context.getClassLoader(), newTab.clx.getName());
+                Fragment fragment = fragmentManager
+                        .getFragmentFactory()
+                        .instantiate(context.getClassLoader(), newTab.clx.getName());
                 // add cache
                 newTab.fragment = fragment;
                 // commit to fragmentManager

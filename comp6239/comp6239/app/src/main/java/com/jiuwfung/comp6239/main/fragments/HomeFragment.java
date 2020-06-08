@@ -17,6 +17,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,6 +43,9 @@ public class HomeFragment extends Fragment {
 
     public DatabaseReference mDatayears ;
     public DatabaseReference mDataStudents;
+    public DatabaseReference mDataAccounts;
+    public FirebaseAuth mAuth ;
+    public FirebaseUser mUser;
 
     @BindView(R.id.home_list_view)
     ListView mHomeListView;
@@ -58,6 +63,7 @@ public class HomeFragment extends Fragment {
 
     public static String USER_IDENTITY;
     public Set<String> SetStudents;
+    public static String STRING_UID;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -73,8 +79,13 @@ public class HomeFragment extends Fragment {
 
         mDatayears = FirebaseDatabase.getInstance().getReference().child("Years");
         mDataStudents = FirebaseDatabase.getInstance().getReference().child("Students");
+        mDataAccounts = FirebaseDatabase.getInstance().getReference().child("Account");
+        mAuth = FirebaseAuth.getInstance();
+        mUser = mAuth.getCurrentUser();
+        STRING_UID = mUser.getUid();
 
-        USER_IDENTITY=sharedIdentity.getString("Identity","Manager");
+        USER_IDENTITY=sharedIdentity.getString("Identity","");
+
         return view;
     }
 
@@ -136,14 +147,29 @@ public class HomeFragment extends Fragment {
         }
 
         if(USER_IDENTITY.equals("Parent")){
-            SetStudents = sharedParent.getStringSet("Children" , null);String Year = sharedStudent.getString("Year" , "Year");
+            SetStudents = sharedParent.getStringSet("Children" , null);
+            String Year = sharedStudent.getString("Year" , "Year");
+
+            mDataAccounts.child(STRING_UID).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for(DataSnapshot dataSnapshot1:dataSnapshot.child("Children").getChildren()){
+                        SetStudents.add(dataSnapshot1.getKey());
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
 
 
             for(String string:SetStudents){
                 mDataStudents.child(string).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        Set<String> SetEvents = new HashSet<String>();
+                        Set<String> SetEvents = new HashSet<>();
                         String tem_student_id = dataSnapshot.getKey();
                         String tem_year = dataSnapshot.child("Year").getValue().toString();
                         String tem_group = dataSnapshot.child("Group").getValue().toString();
@@ -163,6 +189,7 @@ public class HomeFragment extends Fragment {
                                             tem_last , tem_year , tem_group , SetEvents);
                                     listStudentAdapter.add(item);
                                 }
+                                mHomeListView.setAdapter(new mStudentAdapter(listStudentAdapter));
                             }
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -176,7 +203,6 @@ public class HomeFragment extends Fragment {
                     }
                 });
             }
-            mHomeListView.setAdapter(new mStudentAdapter(listStudentAdapter));
 
         }
 

@@ -98,24 +98,24 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
     }
 
     void onSetBackGround(){
-        Glide.with(this)
-                .load(R.drawable.bg_src_tianjin)
-                .centerCrop()
-                .into(new DrawableImageViewTarget(mBackGround) {
-                    @Override
-                    protected void setResource(@Nullable Drawable resource) {
-                        if (resource == null) {
-                            super.setResource(resource);
-                            return;
-                        }
-
-                        Drawable drawable = DrawableCompat.wrap(resource);
-                        drawable.setColorFilter(UiCompat.getColor(getResources(), R.color.white_alpha_64),
-                                PorterDuff.Mode.SCREEN);
-
-                        super.setResource(drawable);
-                    }
-                });
+//        Glide.with(this)
+//                .load(R.drawable.bg_src_tianjin)
+//                .centerCrop()
+//                .into(new DrawableImageViewTarget(mBackGround) {
+//                    @Override
+//                    protected void setResource(@Nullable Drawable resource) {
+//                        if (resource == null) {
+//                            super.setResource(resource);
+//                            return;
+//                        }
+//
+//                        Drawable drawable = DrawableCompat.wrap(resource);
+//                        drawable.setColorFilter(UiCompat.getColor(getResources(), R.color.white_alpha_64),
+//                                PorterDuff.Mode.SCREEN);
+//
+//                        super.setResource(drawable);
+//                    }
+//                });
     }
 
     @Override
@@ -147,7 +147,9 @@ public class WelcomeActivity<Private> extends AppCompatActivity implements Welco
 
     @AfterPermissionGranted(REQUEST_CODE_STORAGE )
     public void onRequestStorge(){
-        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE , Manifest.permission.WRITE_EXTERNAL_STORAGE , Manifest.permission.ACCESS_NETWORK_STATE};
+        String[] perms = {Manifest.permission.READ_EXTERNAL_STORAGE
+                , Manifest.permission.WRITE_EXTERNAL_STORAGE
+                , Manifest.permission.ACCESS_NETWORK_STATE};
 
         if(EasyPermissions.hasPermissions(this , perms)){
 

@@ -119,7 +119,6 @@ public class EventsFragment extends Fragment {
 
         if(EVENT_CHECK){
             Event_List = sharedEventList.getStringSet("EventList" , null);
-            editorEventList.remove("EventList");
             editorEventList.putBoolean("EventCheck" , false);
             editorEventList.commit();
 
@@ -263,6 +262,9 @@ public class EventsFragment extends Fragment {
             String meventlocation = item.Location;
             String meventshortdescription = item.ShortDescription;
             String meventdetail = item.Detail;
+
+            mEventPicture.setImageResource(R.drawable.bg_src_tianjin);
+
             mEventLearnMore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

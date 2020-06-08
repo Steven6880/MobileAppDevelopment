@@ -58,6 +58,7 @@ import net.qiujuer.genius.ui.Ui;
 import net.qiujuer.genius.ui.widget.FloatActionButton;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -88,7 +89,7 @@ public class MainActivity extends AppCompatActivity
     public DatabaseReference mDataaccounts;
 
     public static int INT_IDENTITY = 0;
-    public static String STRING_IDENTITY = "Manager";
+    public static String STRING_IDENTITY ;
     public static String STRING_UID;
     public static File fileDownloadportrait;
     public static int MaxPicSize = 1024 * 1024 * 20;
@@ -169,6 +170,8 @@ public class MainActivity extends AppCompatActivity
         mDatastudents = FirebaseDatabase.getInstance().getReference().child("Students");
         mDataaccounts = FirebaseDatabase.getInstance().getReference().child("Account");
 
+        SetChildren = new HashSet<>();
+
         mNavHelper = new NavHelper<>(this, R.id.lay_container,
                 getSupportFragmentManager(), this);
 
@@ -178,33 +181,39 @@ public class MainActivity extends AppCompatActivity
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         //Load Portrait
-        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , STRING_UID+".jpg");
+        Glide.with(this)
+                .asBitmap()
+                .load(R.drawable.default_portrait)
+                .centerCrop()
+                .into(mPortraitView);
 
-        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
-            @Override
-            public void onSuccess(byte[] bytes) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
-                mPortraitView.setImageBitmap(bitmap);
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
-            }
-        });
-
-        mStoragepicture.getFile(fileDownloadportrait)
-                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                        Log.d("download sucess" , taskSnapshot.toString());
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.d("Failure" , e.getLocalizedMessage());
-            }
-        });
+//        fileDownloadportrait = new File(getApplicationContext().getFilesDir() , STRING_UID+".jpg");
+//
+//        mStoragepicture.getBytes(MaxPicSize).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+//            @Override
+//            public void onSuccess(byte[] bytes) {
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes , 0 , bytes.length);
+//                mPortraitView.setImageBitmap(bitmap);
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(MainActivity.this , "LoadView Failue!" , Toast.LENGTH_LONG).show();
+//            }
+//        });
+//
+//        mStoragepicture.getFile(fileDownloadportrait)
+//                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                        Log.d("download sucess" , taskSnapshot.toString());
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Log.d("Failure" , e.getLocalizedMessage());
+//            }
+//        });
     }
 
     @Override
@@ -290,9 +299,16 @@ public class MainActivity extends AppCompatActivity
 
     @OnClick(R.id.btn_floataction)
     public void onCreateEvent(){
-        EventActivity.show(this);
-        editorEvents.putBoolean("Editable" , true);
-        editorEvents.commit();
+
+        if(INT_IDENTITY==0){
+            EventActivity.show(this);
+            editorEvents.putBoolean("Editable" , true);
+            editorEvents.commit();
+        }
+
+        if(INT_IDENTITY==2){
+            AddChildActivity.show(this);
+        }
     }
 
 
@@ -315,7 +331,12 @@ public class MainActivity extends AppCompatActivity
         float transY = 0;
         float rotation = 0;
         if (Objects.equals(newTab.extra, R.string.title_home)) {
-            transY = Ui.dipToPx(getResources(), 76);
+            if(INT_IDENTITY==2){
+                mFloat.setImageResource(R.drawable.ic_contact_add);
+                rotation = -360;
+            }else {
+                transY = Ui.dipToPx(getResources(), 76);
+            }
         } else {
             if (Objects.equals(newTab.extra, R.string.title_events)) {
                 if(INT_IDENTITY==0){
@@ -379,9 +400,9 @@ public class MainActivity extends AppCompatActivity
                     editorStudent.putString("Group" , dataSnapshot.child("Group").getValue().toString());
                     editorStudent.putString("StudentID" , dataSnapshot.child("StudentID").getValue().toString());
 
-                    mDatayears.child(dataSnapshot.child(dataSnapshot.child("Year").getValue().toString()).getValue().toString())
-                            .child(dataSnapshot.child(dataSnapshot.child("Group").getValue().toString()).getValue().toString())
-                            .child(dataSnapshot.child(dataSnapshot.child("StudentID").getValue().toString()).getValue().toString())
+                    mDatayears.child(dataSnapshot.child("Year").getValue().toString())
+                            .child(dataSnapshot.child("Group").getValue().toString())
+                            .child(dataSnapshot.child("StudentID").getValue().toString())
                             .addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -413,7 +434,10 @@ public class MainActivity extends AppCompatActivity
                     editorParent.putString("Relation" , dataSnapshot.child("Relation").getValue().toString());
 
                     for (DataSnapshot tem_datasnapshot : dataSnapshot.child("Children").getChildren()){
-                        SetChildren.add(tem_datasnapshot.getKey().toString());
+                        Toast.makeText(MainActivity.this , tem_datasnapshot.getKey() , Toast.LENGTH_LONG).show();
+                        Log.e("Student id" , tem_datasnapshot.getKey());
+                        String tem_id = tem_datasnapshot.getKey();
+                        SetChildren.add(tem_id);
                     }
 
                     editorParent.putStringSet("Children" , SetChildren);

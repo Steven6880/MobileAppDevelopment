@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bg_src_tianjin"
+    android:background="@color/black"
     xmlns:tools="http://schemas.android.com/tools">
 
     <!-- All fixed contents -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/black">
 
         <!--Tollbar-->
         <androidx.appcompat.widget.Toolbar

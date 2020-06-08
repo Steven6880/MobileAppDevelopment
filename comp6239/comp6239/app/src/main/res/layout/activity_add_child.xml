@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddChildActivity"
+    android:background="@drawable/bg_src_tianjin">
+
+    <!-- All fixed contents -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--Tollbar-->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_gradient_black"
+            android:paddingTop="@dimen/len_40"
+            android:paddingBottom="@dimen/len_28"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="Add_Student"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/register_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar3">
+
+
+            <!--ChildID-->
+            <LinearLayout
+                android:id="@+id/add_child_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_account_input"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/len_4"
+                android:paddingBottom="@dimen/len_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/len_4">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/len_20"
+                        android:layout_height="@dimen/len_20"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/len_8"
+                        android:layout_marginRight="@dimen/len_8"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_student"
+                        android:tint="@color/colorAccent" />
+
+                    <EditText
+                        android:id="@+id/edit_add_child_id"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/len_4"
+                        android:layout_marginEnd="@dimen/len_2"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/label_edit_student_id"
+                        android:inputType="number"
+                        android:paddingTop="@dimen/len_8"
+                        android:paddingBottom="@dimen/len_8"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textSecond"
+                        android:textCursorDrawable="@drawable/ic_cursor"
+                        android:textSize="@dimen/font_14" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--ContactNumber-->
+            <LinearLayout
+                android:id="@+id/parent_contact_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@drawable/bg_account_input"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/len_4"
+                android:paddingBottom="@dimen/len_4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_child_id">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/len_4">
+
+
+                    <ImageView
+                        android:layout_width="@dimen/len_20"
+                        android:layout_height="@dimen/len_20"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/len_8"
+                        android:layout_marginRight="@dimen/len_8"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_person"
+                        android:tint="@color/colorAccent" />
+
+                    <EditText
+                        android:id="@+id/edit_add_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/len_4"
+                        android:layout_marginEnd="@dimen/len_2"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="Student Name"
+                        android:inputType="text"
+                        android:paddingTop="@dimen/len_8"
+                        android:paddingBottom="@dimen/len_8"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                        android:textColor="@color/textPrimary"
+                        android:textColorHint="@color/textSecond"
+                        android:textCursorDrawable="@drawable/ic_cursor"
+                        android:textSize="@dimen/font_14" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--Sign up-->
+        <FrameLayout
+            android:id="@+id/frameLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/register_change">
+
+
+            <net.qiujuer.genius.ui.widget.Button
+                android:id="@+id/btn_add_submit"
+                android:layout_width="@dimen/len_172"
+                android:layout_height="@dimen/len_44"
+                android:layout_gravity="center"
+                android:background="@drawable/sel_btn_bg_black_alpha_44"
+                android:text="@string/label_submit"
+                android:textColor="@color/white"
+                app:gTouchColor="@color/white_alpha_48"
+                app:gTouchCornerRadius="22dp"
+                app:gTouchEffect="ripple" />
+
+
+            <net.qiujuer.genius.ui.widget.Loading
+                android:id="@+id/loading"
+                android:layout_width="@dimen/len_36"
+                android:layout_height="@dimen/len_36"
+                android:layout_gravity="center"
+                app:gAutoRun="false"
+                app:gBackgroundColor="@color/trans"
+                app:gForegroundColor="@color/white"
+                app:gForegroundLineSize="1dp" />
+        </FrameLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

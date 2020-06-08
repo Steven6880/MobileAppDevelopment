@@ -127,6 +127,8 @@ public class EventActivity extends AppCompatActivity implements EasyPermissions.
 
 
         if(!Editible){
+            mEventPicture.setImageResource(R.drawable.bg_src_tianjin);
+
             mEventPicture.setFocusable(false);
             mEventPicture.setFocusableInTouchMode(false);
             mEventButton.setVisibility(View.GONE);

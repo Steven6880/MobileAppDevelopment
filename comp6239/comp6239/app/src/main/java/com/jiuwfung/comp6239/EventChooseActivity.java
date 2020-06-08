@@ -98,19 +98,22 @@ public class EventChooseActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Ready to add");
         builder.setMessage("Are you sure add them to "+ eventTitle + " ?");
+
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 mDataevent.child("Parts").setValue(hashStudent).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(EventChooseActivity.this , "Add Student Success!" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(EventChooseActivity.this
+                                , "Add Student Success!" , Toast.LENGTH_LONG).show();
                         Log.d("Add student" , "Success");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(EventChooseActivity.this , "Add Student Failure! "+e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
+                        Toast.makeText(EventChooseActivity.this
+                                , "Add Student Failure! "+e.getLocalizedMessage() , Toast.LENGTH_LONG).show();
                         Log.e("Add student" , "Failure! "+e.getLocalizedMessage());
                     }
                 });
@@ -229,10 +232,14 @@ public class EventChooseActivity extends AppCompatActivity {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked){
                         hashStudent.put(item.ID , item.Name);
-                        Toast.makeText(EventChooseActivity.this , "Add " + item.ID + " To Event!" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(EventChooseActivity.this
+                                , "Add " + item.ID + " To Event!"
+                                , Toast.LENGTH_LONG).show();
                     }else {
                         hashStudent.remove(item.ID , item.Name);
-                        Toast.makeText(EventChooseActivity.this , "Remove " + item.ID + " To Event!" , Toast.LENGTH_LONG).show();
+                        Toast.makeText(EventChooseActivity.this
+                                , "Remove " + item.ID + " To Event!"
+                                , Toast.LENGTH_LONG).show();
                     }
                 }
             });

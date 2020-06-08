@@ -29,13 +29,13 @@ public class Application extends android.app.Application {
      * @return
      */
     public static File getPortraitTmpFile() {
-        // 得到头像目录的缓存地址
+        // get cache of current portrait
         File dir = new File(getCacheDirFile(), "portrait");
-        // 创建所有的对应的文件夹
+        // create dir for it
         //noinspection ResultOfMethodCallIgnored
         dir.mkdirs();
 
-        // 删除旧的一些缓存为文件
+        // delete some outdated files
         File[] files = dir.listFiles();
         if (files != null && files.length > 0) {
             for (File file : files) {
@@ -44,7 +44,6 @@ public class Application extends android.app.Application {
             }
         }
 
-        // 返回一个当前时间戳的目录文件地址
         File path = new File(dir, SystemClock.uptimeMillis() + ".jpg");
         return path.getAbsoluteFile();
     }

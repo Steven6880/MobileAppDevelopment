@@ -387,7 +387,6 @@ public class RegisterFragment extends Fragment {
         String childID = (mChildID.getText().toString());
         String contactnumbner = (mContactnumber.getText().toString());
         String relation = STRING_RELATION;
-        STRING_ACCOUNT = account.substring(0,account.indexOf("@"));
 
         if (INT_PICTURE!=1){
             Toast.makeText( getActivity() , "Choose Your Photo!" , Toast.LENGTH_LONG).show();
@@ -527,6 +526,7 @@ public class RegisterFragment extends Fragment {
                                                             mDatastudent = mDatagroup.child(studentID);
                                                             mDatafather = mDatastudent.child("Father");
                                                             mDatamother = mDatastudent.child("Mother");
+
                                                             mDatastudent.setValue(Student).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
@@ -538,6 +538,7 @@ public class RegisterFragment extends Fragment {
                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                 }
                                                             });
+
                                                             mDatafather.setValue(Father).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                 @Override
                                                                 public void onSuccess(Void aVoid) {
@@ -809,6 +810,7 @@ public class RegisterFragment extends Fragment {
                                                                                     Toast.makeText(getActivity() , "add information failure" +e.getLocalizedMessage(), Toast.LENGTH_LONG).show();
                                                                                 }
                                                                             });
+
                                                                             mDataaccounts.child(UID).setValue(Account).addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                 @Override
                                                                                 public void onSuccess(Void aVoid) {
